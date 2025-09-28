@@ -24,20 +24,30 @@ interface Profile {
 
 interface MedicalRecord {
   id: string;
-  test_type: string;
+  record_type: string;
   test_date: string;
-  status: string;
-  doctor_notes: string | null;
-  results: any;
+  notes: string | null;
+  test_results: string | null;
+  file_url: string | null;
+  patient_name: string;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
 }
 
 interface Booking {
   id: string;
-  service_name: string;
-  service_price: number;
-  booking_date: string;
+  service: string;
+  preferred_date: string;
+  preferred_time: string;
   status: string;
-  payment_status: string;
+  patient_name: string;
+  email: string;
+  phone: string;
+  message: string | null;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
 }
 
 const Dashboard = () => {
@@ -68,7 +78,7 @@ const Dashboard = () => {
         .from('profiles')
         .select('*')
         .eq('user_id', user!.id)
-        .single();
+        .maybeSingle();
       
       setProfile(profileData);
 
@@ -187,9 +197,9 @@ const Dashboard = () => {
                   <TestTube className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">
-                    {medicalRecords.filter(r => r.status === 'pending').length}
-                  </div>
+                   <div className="text-2xl font-bold">
+                     {medicalRecords.filter(r => r.test_results === null).length}
+                   </div>
                 </CardContent>
               </Card>
             </div>
@@ -200,16 +210,16 @@ const Dashboard = () => {
                   <CardTitle>Recent Medical Records</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {medicalRecords.slice(0, 3).map((record) => (
-                    <div key={record.id} className="flex items-center justify-between py-2 border-b last:border-b-0">
-                      <div>
-                        <p className="font-medium">{record.test_type}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {new Date(record.test_date).toLocaleDateString()}
-                        </p>
-                      </div>
-                      {getStatusBadge(record.status)}
-                    </div>
+                   {medicalRecords.slice(0, 3).map((record) => (
+                     <div key={record.id} className="flex items-center justify-between py-2 border-b last:border-b-0">
+                       <div>
+                         <p className="font-medium">{record.record_type}</p>
+                         <p className="text-sm text-muted-foreground">
+                           {new Date(record.test_date).toLocaleDateString()}
+                         </p>
+                       </div>
+                       <Badge variant="outline">Record</Badge>
+                     </div>
                   ))}
                 </CardContent>
               </Card>
@@ -219,16 +229,16 @@ const Dashboard = () => {
                   <CardTitle>Recent Bookings</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {bookings.slice(0, 3).map((booking) => (
-                    <div key={booking.id} className="flex items-center justify-between py-2 border-b last:border-b-0">
-                      <div>
-                        <p className="font-medium">{booking.service_name}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {new Date(booking.booking_date).toLocaleDateString()}
-                        </p>
-                      </div>
-                      {getStatusBadge(booking.status)}
-                    </div>
+                   {bookings.slice(0, 3).map((booking) => (
+                     <div key={booking.id} className="flex items-center justify-between py-2 border-b last:border-b-0">
+                       <div>
+                         <p className="font-medium">{booking.service}</p>
+                         <p className="text-sm text-muted-foreground">
+                           {new Date(booking.preferred_date).toLocaleDateString()} at {booking.preferred_time}
+                         </p>
+                       </div>
+                       {getStatusBadge(booking.status)}
+                     </div>
                   ))}
                 </CardContent>
               </Card>
@@ -254,17 +264,17 @@ const Dashboard = () => {
                               <div className="p-2 bg-medical-cyan/10 rounded-full">
                                 <TestTube className="h-4 w-4 text-medical-cyan" />
                               </div>
-                              <div>
-                                <h3 className="font-semibold">{record.test_type}</h3>
-                                <p className="text-sm text-muted-foreground">
-                                  {new Date(record.test_date).toLocaleDateString()}
-                                </p>
-                                {record.doctor_notes && (
-                                  <p className="text-sm mt-1">{record.doctor_notes}</p>
-                                )}
-                              </div>
+                               <div>
+                                 <h3 className="font-semibold">{record.record_type}</h3>
+                                 <p className="text-sm text-muted-foreground">
+                                   {new Date(record.test_date).toLocaleDateString()}
+                                 </p>
+                                 {record.notes && (
+                                   <p className="text-sm mt-1">{record.notes}</p>
+                                 )}
+                               </div>
                             </div>
-                            {getStatusBadge(record.status)}
+                            <Badge variant="outline">Record</Badge>
                           </div>
                         </CardContent>
                       </Card>
@@ -294,23 +304,18 @@ const Dashboard = () => {
                               <div className="p-2 bg-medical-magenta/10 rounded-full">
                                 <Calendar className="h-4 w-4 text-medical-magenta" />
                               </div>
-                              <div>
-                                <h3 className="font-semibold">{booking.service_name}</h3>
-                                <p className="text-sm text-muted-foreground">
-                                  {new Date(booking.booking_date).toLocaleDateString()} at{' '}
-                                  {new Date(booking.booking_date).toLocaleTimeString()}
-                                </p>
-                                <p className="text-sm font-medium">₦{booking.service_price.toLocaleString()}</p>
-                              </div>
-                            </div>
-                            <div className="flex space-x-2">
-                              {getStatusBadge(booking.status)}
-                              {getStatusBadge(booking.payment_status)}
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
+                               <div>
+                                 <h3 className="font-semibold">{booking.service}</h3>
+                                 <p className="text-sm text-muted-foreground">
+                                   {new Date(booking.preferred_date).toLocaleDateString()} at {booking.preferred_time}
+                                 </p>
+                               </div>
+                             </div>
+                             {getStatusBadge(booking.status)}
+                           </div>
+                         </CardContent>
+                       </Card>
+                     ))}
                   </div>
                 )}
               </CardContent>

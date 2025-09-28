@@ -81,9 +81,9 @@ const PaystackPayment: React.FC<PaystackPaymentProps> = ({
         .from('payments')
         .insert(paymentData)
         .select()
-        .single();
+        .maybeSingle();
 
-      if (paymentError) {
+      if (paymentError || !payment) {
         console.error('Payment creation error:', paymentError);
         toast.error('Failed to create payment record');
         setLoading(false);
