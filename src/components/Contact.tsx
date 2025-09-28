@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { MapPin, Phone, Mail, MessageCircle, Clock, Navigation } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -43,14 +44,46 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast({
-        title: "Booking Request Sent!",
-        description: "We'll contact you within 30 minutes to confirm your appointment.",
+    try {
+      const formData = new FormData(e.currentTarget as HTMLFormElement);
+      const contactData = {
+        fullName: formData.get('fullName') as string,
+        phone: formData.get('phone') as string,
+        email: formData.get('email') as string,
+        testType: formData.get('testType') as string,
+        preferredDate: formData.get('preferredDate') as string,
+        preferredTime: formData.get('preferredTime') as string,
+        notes: formData.get('notes') as string,
+      };
+
+      // Send email notification
+      const { error: emailError } = await supabase.functions.invoke('send-contact-notification', {
+        body: contactData,
       });
-    }, 2000);
+
+      if (emailError) {
+        console.error('Error sending email:', emailError);
+        toast({
+          title: "Error",
+          description: "Failed to send your request. Please try again or contact us directly.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Booking Request Sent!",
+          description: "We'll contact you within 30 minutes to confirm your appointment.",
+        });
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to send your request. Please try again or contact us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const openWhatsApp = () => {
@@ -127,27 +160,27 @@ const Contact = () => {
               <CardContent className="p-4 sm:p-6 pt-0">
                 <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                    <div className="space-y-1 sm:space-y-2">
-                      <Label htmlFor="fullName" className="text-xs sm:text-sm">Full Name *</Label>
-                      <Input id="fullName" placeholder="Enter your full name" required className="text-sm sm:text-base" />
-                    </div>
-                    <div className="space-y-1 sm:space-y-2">
-                      <Label htmlFor="phone" className="text-xs sm:text-sm">Phone Number *</Label>
-                      <Input id="phone" type="tel" placeholder="08012345678" required className="text-sm sm:text-base" />
-                    </div>
+                     <div className="space-y-1 sm:space-y-2">
+                       <Label htmlFor="fullName" className="text-xs sm:text-sm">Full Name *</Label>
+                       <Input id="fullName" name="fullName" placeholder="Enter your full name" required className="text-sm sm:text-base" />
+                     </div>
+                     <div className="space-y-1 sm:space-y-2">
+                       <Label htmlFor="phone" className="text-xs sm:text-sm">Phone Number *</Label>
+                       <Input id="phone" name="phone" type="tel" placeholder="08012345678" required className="text-sm sm:text-base" />
+                     </div>
                   </div>
 
-                  <div className="space-y-1 sm:space-y-2">
-                    <Label htmlFor="email" className="text-xs sm:text-sm">Email Address</Label>
-                    <Input id="email" type="email" placeholder="your.email@example.com" className="text-sm sm:text-base" />
-                  </div>
+                   <div className="space-y-1 sm:space-y-2">
+                     <Label htmlFor="email" className="text-xs sm:text-sm">Email Address</Label>
+                     <Input id="email" name="email" type="email" placeholder="your.email@example.com" className="text-sm sm:text-base" />
+                   </div>
 
-                  <div className="space-y-1 sm:space-y-2">
-                    <Label htmlFor="testType" className="text-xs sm:text-sm">Select Test *</Label>
-                    <Select required>
-                      <SelectTrigger className="text-sm sm:text-base bg-background z-50">
-                        <SelectValue placeholder="Select test type" />
-                      </SelectTrigger>
+                   <div className="space-y-1 sm:space-y-2">
+                     <Label htmlFor="testType" className="text-xs sm:text-sm">Select Test *</Label>
+                     <Select name="testType" required>
+                       <SelectTrigger className="text-sm sm:text-base bg-background z-50">
+                         <SelectValue placeholder="Select test type" />
+                       </SelectTrigger>
                       <SelectContent className="bg-background border shadow-lg z-50 max-h-[300px] overflow-y-auto">
                         {/* Fever Tests */}
                         <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground bg-secondary/50">Fever Tests</div>
@@ -253,16 +286,16 @@ const Contact = () => {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                    <div className="space-y-1 sm:space-y-2">
-                      <Label htmlFor="preferredDate" className="text-xs sm:text-sm">Preferred Date</Label>
-                      <Input id="preferredDate" type="date" className="text-sm sm:text-base" />
-                    </div>
-                    <div className="space-y-1 sm:space-y-2">
-                      <Label htmlFor="preferredTime" className="text-xs sm:text-sm">Preferred Time</Label>
-                      <Select>
-                        <SelectTrigger className="text-sm sm:text-base">
-                          <SelectValue placeholder="Select time" />
-                        </SelectTrigger>
+                     <div className="space-y-1 sm:space-y-2">
+                       <Label htmlFor="preferredDate" className="text-xs sm:text-sm">Preferred Date</Label>
+                       <Input id="preferredDate" name="preferredDate" type="date" className="text-sm sm:text-base" />
+                     </div>
+                     <div className="space-y-1 sm:space-y-2">
+                       <Label htmlFor="preferredTime" className="text-xs sm:text-sm">Preferred Time</Label>
+                       <Select name="preferredTime">
+                         <SelectTrigger className="text-sm sm:text-base">
+                           <SelectValue placeholder="Select time" />
+                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="morning">Morning (8AM - 12PM)</SelectItem>
                           <SelectItem value="afternoon">Afternoon (12PM - 4PM)</SelectItem>
@@ -272,15 +305,16 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="space-y-1 sm:space-y-2">
-                    <Label htmlFor="notes" className="text-xs sm:text-sm">Additional Notes</Label>
-                    <Textarea 
-                      id="notes" 
-                      placeholder="Any specific requirements or questions..."
-                      rows={3}
-                      className="text-sm sm:text-base"
-                    />
-                  </div>
+                   <div className="space-y-1 sm:space-y-2">
+                     <Label htmlFor="notes" className="text-xs sm:text-sm">Additional Notes</Label>
+                     <Textarea 
+                       id="notes" 
+                       name="notes"
+                       placeholder="Any specific requirements or questions..."
+                       rows={3}
+                       className="text-sm sm:text-base"
+                     />
+                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                     <Button 
