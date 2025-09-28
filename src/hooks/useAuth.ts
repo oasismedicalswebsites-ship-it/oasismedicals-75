@@ -32,6 +32,7 @@ export const useAuth = () => {
       email,
       password,
       options: {
+        emailRedirectTo: 'https://oasismedicals.com',
         data: {
           first_name: firstName,
           last_name: lastName,
