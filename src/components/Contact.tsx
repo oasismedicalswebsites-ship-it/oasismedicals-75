@@ -46,39 +46,40 @@ const Contact = () => {
     
     try {
       const formData = new FormData(e.currentTarget as HTMLFormElement);
-      const contactData = {
-        fullName: formData.get('fullName') as string,
-        phone: formData.get('phone') as string,
-        email: formData.get('email') as string,
-        testType: formData.get('testType') as string,
-        preferredDate: formData.get('preferredDate') as string,
-        preferredTime: formData.get('preferredTime') as string,
-        notes: formData.get('notes') as string,
-      };
-
-      // Send email notification
-      const { error: emailError } = await supabase.functions.invoke('send-contact-notification', {
-        body: contactData,
+      
+      // Build WhatsApp message
+      const fullName = formData.get('fullName') as string;
+      const phone = formData.get('phone') as string;
+      const email = formData.get('email') as string;
+      const testType = formData.get('testType') as string;
+      const preferredDate = formData.get('preferredDate') as string;
+      const preferredTime = formData.get('preferredTime') as string;
+      const notes = formData.get('notes') as string;
+      
+      let message = `*New Booking Request*\n\n`;
+      message += `Name: ${fullName}\n`;
+      message += `Phone: ${phone}\n`;
+      if (email) message += `Email: ${email}\n`;
+      message += `Test: ${testType}\n`;
+      if (preferredDate) message += `Preferred Date: ${preferredDate}\n`;
+      if (preferredTime) message += `Preferred Time: ${preferredTime}\n`;
+      if (notes) message += `\nNotes: ${notes}`;
+      
+      // Open WhatsApp
+      window.open(`https://wa.me/2347033600770?text=${encodeURIComponent(message)}`, '_blank');
+      
+      toast({
+        title: "Redirecting to WhatsApp",
+        description: "You'll be connected with us on WhatsApp to confirm your appointment.",
       });
-
-      if (emailError) {
-        console.error('Error sending email:', emailError);
-        toast({
-          title: "Error",
-          description: "Failed to send your request. Please try again or contact us directly.",
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Booking Request Sent!",
-          description: "We'll contact you within 30 minutes to confirm your appointment.",
-        });
-      }
+      
+      // Reset form
+      (e.target as HTMLFormElement).reset();
     } catch (error) {
       console.error('Form submission error:', error);
       toast({
         title: "Error",
-        description: "Failed to send your request. Please try again or contact us directly.",
+        description: "Failed to open WhatsApp. Please try again or contact us directly.",
         variant: "destructive",
       });
     } finally {
@@ -87,11 +88,11 @@ const Contact = () => {
   };
 
   const openWhatsApp = () => {
-    window.open('https://wa.me/2348058135226', '_blank');
+    window.open('https://wa.me/2347033600770', '_blank');
   };
 
   const makeCall = () => {
-    window.open('tel:+2348058135226', '_self');
+    window.open('tel:+2347033600770', '_self');
   };
 
   return (

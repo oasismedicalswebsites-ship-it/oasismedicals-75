@@ -55,29 +55,11 @@ const Chatbot = () => {
   const sendMessage = async (text: string) => {
     if (!text.trim()) return;
 
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      text: text,
-      sender: 'user',
-      timestamp: new Date()
-    };
-
-    setMessages(prev => [...prev, userMessage]);
+    // Redirect to WhatsApp with the user's message
+    const whatsappMessage = encodeURIComponent(`Hello! ${text}`);
+    window.open(`https://wa.me/2347033600770?text=${whatsappMessage}`, '_blank');
+    
     setInputMessage("");
-    setIsTyping(true);
-
-    // Simulate bot typing delay
-    setTimeout(() => {
-      const botResponse = getBotResponse(text.toLowerCase());
-      const botMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        text: botResponse,
-        sender: 'bot',
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, botMessage]);
-      setIsTyping(false);
-    }, 1500);
   };
 
   const getBotResponse = (userText: string): string => {
@@ -108,7 +90,7 @@ const Chatbot = () => {
   };
 
   const openWhatsApp = () => {
-    window.open('https://wa.me/2348058135226?text=Hello! I would like to book a diagnostic test.', '_blank');
+    window.open('https://wa.me/2347033600770?text=Hello! I would like to book a diagnostic test.', '_blank');
   };
 
   if (!isOpen) {
