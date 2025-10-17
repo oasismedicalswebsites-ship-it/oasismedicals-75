@@ -64,6 +64,14 @@ const Services = () => {
       popular: false
     },
     {
+      icon: Heart,
+      title: "Women's Health",
+      description: "Specialized diagnostic services for women's health and wellness",
+      features: ["Pelvic Scans", "HVS Testing", "Fertility Tests", "Hormonal Profiles"],
+      priceRange: "₦9,000 - ₦150,000",
+      popular: false
+    },
+    {
       icon: Activity,
       title: "ECG Services",
       description: "Electrocardiogram testing for heart health assessment",
