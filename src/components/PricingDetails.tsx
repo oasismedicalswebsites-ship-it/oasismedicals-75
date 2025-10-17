@@ -80,6 +80,16 @@ const PricingDetails = () => {
         { name: "Pre-marital Test (Comprehensive) - Male\n\t•\tBlood Grouping (ABO & Rh Typing)\n\t•\tHb Electrophoresis/Genotype (Qualitative)\n\t•\tFull Blood Count\n\t•\tFollicule Stimulating Hormone (FSH)\n\t•\tLH - Luteinizing Hormone\n\t•\tTestosterone (Total)\n\t•\tHepatitis B Surface Antigen (HBsAg) Rapid\n\t•\tHepatitis C Antibody (HCV) Rapid\n\t•\tHIV I & II Rapid\n\t•\tSeminal Fluid Analysis\n\t•\tSemen: Microscopy, Culture and Sensitivity", price: "₦120,000" }
       ]
     },
+    antenatal: {
+      title: "Antenatal Packages",
+      icon: Stethoscope,
+      color: "from-teal-500 to-cyan-600",
+      description: "Antenatal tests are crucial for monitoring the health of both the mother and baby, allowing for the early detection and management of potential complications like gestational diabetes or anemia. They also help track the baby's development through ultrasounds, screen for genetic conditions, and provide a platform for health education and planning for birth and the postpartum period.",
+      tests: [
+        { name: "Basic Package\n\t•\tObstetrics Scan\n\t•\tPCV\n\t•\tUrinalysis", price: "₦4,500" },
+        { name: "Standard Package\n\t•\tObstetrics Scan\n\t•\tPCV\n\t•\tUrinalysis\n\t•\tBlood Grouping\n\t•\tRh Factor\n\t•\tHepatitis B Surface Antigen (HBsAg) Rapid\n\t•\tHIV I & II Rapid\n\t•\tHepatitis C Virus Antibody (HCV) Rapid", price: "₦13,000" }
+      ]
+    },
     ultrasound: {
       title: "Ultrasound Scan",
       icon: Heart,
