@@ -38,11 +38,15 @@ const LanguageSwitcher = () => {
     if (select) {
       select.value = lang;
       select.dispatchEvent(new Event('change'));
-    }
-    document.querySelectorAll('.flag').forEach(f => f.classList.remove('active'));
-    const flagElement = document.getElementById(`flag-${lang}`);
-    if (flagElement) {
-      flagElement.classList.add('active');
+      
+      // Update active flag
+      document.querySelectorAll('.flag').forEach(f => f.classList.remove('active'));
+      const flagElement = document.getElementById(`flag-${lang}`);
+      if (flagElement) {
+        flagElement.classList.add('active');
+      }
+    } else {
+      console.error('Google Translate dropdown not found. Please wait for it to load.');
     }
   };
 
@@ -65,7 +69,7 @@ const LanguageSwitcher = () => {
           onClick={() => changeLang('yo')}
           alt="Yoruba"
         />
-        <div id="google_translate_element" className="hidden"></div>
+        <div id="google_translate_element" style={{ display: 'none' }}></div>
       </div>
       
       <style>{`
@@ -76,16 +80,17 @@ const LanguageSwitcher = () => {
         }
         
         .goog-logo-link, 
-        .goog-te-gadget {
-          display: none !important;
-        }
-        
+        .goog-te-gadget,
         .goog-te-banner-frame {
           display: none !important;
         }
         
         body {
           top: 0 !important;
+        }
+        
+        #google_translate_element {
+          display: none !important;
         }
       `}</style>
     </>
