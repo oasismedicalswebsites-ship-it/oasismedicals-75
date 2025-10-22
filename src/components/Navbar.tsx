@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useNavigationWithLoading } from "@/hooks/useNavigationWithLoading";
 import { useState } from "react";
 import PremiumLoadingScreen from "./PremiumLoadingScreen";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -84,6 +85,7 @@ const Navbar = () => {
             >
               Gallery
             </button>
+            <LanguageSwitcher />
           </div>
 
           {/* Mobile & Desktop Actions */}

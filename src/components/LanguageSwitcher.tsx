@@ -48,11 +48,11 @@ const LanguageSwitcher = () => {
 
   return (
     <>
-      <div className="fixed top-4 right-4 bg-white border-2 border-primary rounded-full px-2.5 py-1.5 shadow-lg flex items-center gap-1.5 z-[9999]">
+      <div className="flex items-center gap-2 ml-4">
         <img 
           src="https://flagcdn.com/gb.svg" 
           id="flag-en" 
-          className="flag active w-[26px] h-[18px] rounded-sm cursor-pointer opacity-60 transition-all duration-300 hover:opacity-100" 
+          className="flag active w-[22px] h-[16px] rounded-sm cursor-pointer opacity-60 transition-all duration-300 hover:opacity-100" 
           title="English" 
           onClick={() => changeLang('en')}
           alt="English"
@@ -60,7 +60,7 @@ const LanguageSwitcher = () => {
         <img 
           src="https://flagcdn.com/ng.svg" 
           id="flag-yo" 
-          className="flag w-[26px] h-[18px] rounded-sm cursor-pointer opacity-60 transition-all duration-300 hover:opacity-100" 
+          className="flag w-[22px] h-[16px] rounded-sm cursor-pointer opacity-60 transition-all duration-300 hover:opacity-100" 
           title="Yoruba" 
           onClick={() => changeLang('yo')}
           alt="Yoruba"
@@ -72,7 +72,7 @@ const LanguageSwitcher = () => {
         .flag.active {
           opacity: 1 !important;
           transform: scale(1.1);
-          box-shadow: 0 0 6px hsl(var(--primary) / 0.5);
+          box-shadow: 0 0 4px rgba(4,176,168,0.4);
         }
         
         .goog-logo-link, 
