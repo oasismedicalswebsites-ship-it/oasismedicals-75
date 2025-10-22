@@ -34,20 +34,35 @@ const LanguageSwitcher = () => {
   }, []);
 
   const changeLang = (lang: string) => {
-    const select = document.querySelector('.goog-te-combo') as HTMLSelectElement;
-    if (select) {
-      select.value = lang;
-      select.dispatchEvent(new Event('change'));
+    // Retry logic to ensure Google Translate is fully loaded
+    let attempts = 0;
+    const maxAttempts = 10;
+    
+    const tryChangeLanguage = () => {
+      const select = document.querySelector('.goog-te-combo') as HTMLSelectElement;
       
-      // Update active flag
-      document.querySelectorAll('.flag').forEach(f => f.classList.remove('active'));
-      const flagElement = document.getElementById(`flag-${lang}`);
-      if (flagElement) {
-        flagElement.classList.add('active');
+      if (select) {
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
+        
+        // Update active flag
+        document.querySelectorAll('.flag').forEach(f => f.classList.remove('active'));
+        const flagElement = document.getElementById(`flag-${lang}`);
+        if (flagElement) {
+          flagElement.classList.add('active');
+        }
+      } else {
+        attempts++;
+        if (attempts < maxAttempts) {
+          // Retry after 300ms
+          setTimeout(tryChangeLanguage, 300);
+        } else {
+          console.error('Google Translate dropdown not found after multiple attempts.');
+        }
       }
-    } else {
-      console.error('Google Translate dropdown not found. Please wait for it to load.');
-    }
+    };
+    
+    tryChangeLanguage();
   };
 
   return (
