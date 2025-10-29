@@ -1,111 +1,172 @@
 import { useEffect, useState } from 'react';
 
+// Robust, single-load Google Translate + custom UI
+// - Hides all Google UI
+// - Programmatically switches language without page reload
+// - Persists selection in localStorage
+// - Responsive and z-index safe
+
 declare global {
   interface Window {
     google: any;
     googleTranslateElementInit: () => void;
     __gt_initialized?: boolean;
-    __gt_script_loading?: boolean;
+    __gt_loading_promise?: Promise<void> | null;
   }
+}
+
+let translateInitPromise: Promise<void> | null = null;
+
+function ensureGoogleTranslateLoaded(): Promise<void> {
+  if (translateInitPromise) return translateInitPromise;
+
+  translateInitPromise = new Promise<void>((resolve) => {
+    const init = () => {
+      try {
+        if (window.__gt_initialized) return resolve();
+        if (!window.google?.translate?.TranslateElement) return; // wait for script
+
+        // Mount the element (kept off-screen via CSS below)
+        new window.google.translate.TranslateElement(
+          {
+            pageLanguage: 'en',
+            includedLanguages: 'en,yo',
+            layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false,
+          },
+          'google_translate_element'
+        );
+        window.__gt_initialized = true;
+        resolve();
+      } catch {
+        // Fail silently but do not resolve yet
+      }
+    };
+
+    // Expose callback for Google script
+    window.googleTranslateElementInit = init;
+
+    // If script already present, attempt init repeatedly until ready
+    const existing = document.querySelector(
+      'script[src*="translate_a/element.js"]'
+    ) as HTMLScriptElement | null;
+
+    if (existing) {
+      // Try repeatedly until google is ready
+      const poll = () => {
+        if (window.google?.translate?.TranslateElement) {
+          init();
+        } else {
+          setTimeout(poll, 200);
+        }
+      };
+      poll();
+      return;
+    }
+
+    // Inject script once
+    const script = document.createElement('script');
+    script.src =
+      'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.async = true;
+    document.body.appendChild(script);
+
+    // Fallback polling just in case cb doesn't fire
+    const poll = () => {
+      if (window.google?.translate?.TranslateElement) {
+        init();
+      } else {
+        setTimeout(poll, 200);
+      }
+    };
+    poll();
+  });
+
+  return translateInitPromise;
+}
+
+function setTranslateCookie(lang: string) {
+  try {
+    const value = `/en/${lang}`;
+    const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
+    // Path cookie generally suffices; some domains reject explicit domain attr
+    document.cookie = `googtrans=${value}; expires=${expires}; path=/`;
+  } catch {
+    // no-op
+  }
+}
+
+async function applyLanguage(lang: string) {
+  setTranslateCookie(lang);
+
+  // Ensure translate element exists
+  await ensureGoogleTranslateLoaded();
+
+  // Retry selecting the hidden dropdown
+  let attempts = 0;
+  const maxAttempts = 40;
+
+  return new Promise<void>((resolve) => {
+    const trySelect = () => {
+      const select = document.querySelector('.goog-te-combo') as
+        | HTMLSelectElement
+        | null;
+
+      if (select) {
+        if (select.value !== lang) {
+          select.value = lang;
+        }
+        // Dispatch both native and React-friendly events
+        select.dispatchEvent(new Event('change'));
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        resolve();
+      } else if (attempts < maxAttempts) {
+        attempts++;
+        setTimeout(trySelect, 200);
+      } else {
+        // As last resort, setting cookie still helps future renders
+        resolve();
+      }
+    };
+    trySelect();
+  });
 }
 
 const LanguageSwitcher = () => {
   const [currentLang, setCurrentLang] = useState<string>('en');
 
-  // Initialize Google Translate once and persist across navigation
   useEffect(() => {
-    const init = () => {
-      if (window.__gt_initialized) return;
-      if (!window.google?.translate?.TranslateElement) return;
+    // Prepare translate silently
+    ensureGoogleTranslateLoaded();
 
-      new window.google.translate.TranslateElement(
-        {
-          pageLanguage: 'en',
-          includedLanguages: 'en,yo',
-          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false,
-        },
-        'google_translate_element'
-      );
-      window.__gt_initialized = true;
-    };
+    const saved = localStorage.getItem('preferredLanguage') || 'en';
+    setCurrentLang(saved);
 
-    // Expose callback (idempotent)
-    window.googleTranslateElementInit = init;
-
-    // Load script only once
-    const hasScript = !!document.querySelector('script[src*="translate_a/element.js"]');
-    if (!hasScript && !window.__gt_script_loading) {
-      const script = document.createElement('script');
-      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-      script.async = true;
-      window.__gt_script_loading = true;
-      document.body.appendChild(script);
-    } else {
-      init();
+    if (saved !== 'en') {
+      // Apply saved language after init
+      const doApply = async () => {
+        await applyLanguage(saved);
+      };
+      // slight delay to ensure initial DOM is ready
+      const t = setTimeout(doApply, 300);
+      return () => clearTimeout(t);
     }
-
-    // Load saved language from localStorage
-    const savedLang = localStorage.getItem('preferredLanguage') || 'en';
-    setCurrentLang(savedLang);
   }, []);
 
-  const changeLanguage = (lang: string) => {
-    // Save to localStorage
+  const changeLanguage = async (lang: 'en' | 'yo') => {
+    if (lang === currentLang) return;
     localStorage.setItem('preferredLanguage', lang);
     setCurrentLang(lang);
-
-    // Retry logic to ensure Google Translate is fully loaded
-    let attempts = 0;
-    const maxAttempts = 30;
-
-    const setTranslateCookie = (targetLang: string) => {
-      try {
-        const value = `/en/${targetLang}`;
-        const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
-        document.cookie = `googtrans=${value}; expires=${expires}; path=/`;
-        document.cookie = `googtrans=${value}; expires=${expires}; path=/; domain=${window.location.hostname}`;
-      } catch (e) {
-        // no-op
-      }
-    };
-
-    const tryChangeLanguage = () => {
-      const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
-
-      if (select) {
-        select.value = lang;
-        select.dispatchEvent(new Event('change'));
-        setTranslateCookie(lang);
-      } else {
-        attempts++;
-        if (attempts < maxAttempts) {
-          setTimeout(tryChangeLanguage, 300);
-        } else {
-          setTranslateCookie(lang);
-          setTimeout(tryChangeLanguage, 500);
-        }
-      }
-    };
-
-    tryChangeLanguage();
+    await applyLanguage(lang);
   };
-
-  // Apply saved language on mount
-  useEffect(() => {
-    const savedLang = localStorage.getItem('preferredLanguage');
-    if (savedLang && savedLang !== 'en') {
-      setTimeout(() => changeLanguage(savedLang), 300);
-    }
-  }, []);
 
   return (
     <>
-      <div className="relative z-50 flex items-center space-x-2 text-sm md:text-base">
+      <div className="relative z-50 flex items-center justify-end space-x-2 md:space-x-4">
         <button
           onClick={() => changeLanguage('en')}
           className={`flex items-center space-x-1 px-2 py-1 rounded-md transition-all duration-300 hover:bg-primary/10 ${
-            currentLang === 'en' ? 'bg-primary/20 font-semibold' : 'opacity-60'
+            currentLang === 'en' ? 'bg-primary/20 font-semibold' : 'opacity-70'
           }`}
           title="English"
         >
@@ -115,7 +176,7 @@ const LanguageSwitcher = () => {
         <button
           onClick={() => changeLanguage('yo')}
           className={`flex items-center space-x-1 px-2 py-1 rounded-md transition-all duration-300 hover:bg-primary/10 ${
-            currentLang === 'yo' ? 'bg-primary/20 font-semibold' : 'opacity-60'
+            currentLang === 'yo' ? 'bg-primary/20 font-semibold' : 'opacity-70'
           }`}
           title="Yoruba"
         >
@@ -124,23 +185,18 @@ const LanguageSwitcher = () => {
         </button>
       </div>
 
-      {/* Hide Google Translate element completely */}
-      <div id="google_translate_element" style={{ position: 'absolute', left: '-9999px', visibility: 'hidden' }} />
+      {/* Hidden container for Google Translate element (kept off-screen, not removed) */}
+      <div id="google_translate_element" className="text-sm md:text-base relative z-50" />
 
+      {/* Hard-hide Google UI to avoid toolbar/branding while keeping functionality */}
       <style>{`
-        .goog-logo-link,
-        .goog-te-banner-frame,
-        .goog-te-gadget {
-          display: none !important;
-        }
-
+        .goog-logo-link, .goog-te-banner-frame { display: none !important; }
         body { top: 0 !important; }
-
-        /* Hide all Google Translate UI elements */
-        #google_translate_element,
-        .goog-te-combo,
-        .goog-te-banner-frame.skiptranslate {
-          display: none !important;
+        /* Keep the gadget and select in DOM but fully off-screen to allow programmatic control */
+        #google_translate_element, .goog-te-gadget, .goog-te-combo, .skiptranslate {
+          position: absolute !important;
+          left: -9999px !important; top: -9999px !important;
+          height: 0 !important; width: 0 !important; overflow: hidden !important;
           visibility: hidden !important;
         }
       `}</style>
@@ -149,3 +205,4 @@ const LanguageSwitcher = () => {
 };
 
 export default LanguageSwitcher;
+
