@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 declare global {
   interface Window {
@@ -10,6 +10,8 @@ declare global {
 }
 
 const LanguageSwitcher = () => {
+  const [currentLang, setCurrentLang] = useState<string>('en');
+
   // Initialize Google Translate once and persist across navigation
   useEffect(() => {
     const init = () => {
@@ -42,12 +44,20 @@ const LanguageSwitcher = () => {
     } else {
       init();
     }
+
+    // Load saved language from localStorage
+    const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+    setCurrentLang(savedLang);
   }, []);
 
-  const changeLang = (lang: string) => {
+  const changeLanguage = (lang: string) => {
+    // Save to localStorage
+    localStorage.setItem('preferredLanguage', lang);
+    setCurrentLang(lang);
+
     // Retry logic to ensure Google Translate is fully loaded
     let attempts = 0;
-    const maxAttempts = 30; // give more time for Google to inject the dropdown
+    const maxAttempts = 30;
 
     const setTranslateCookie = (targetLang: string) => {
       try {
@@ -67,20 +77,11 @@ const LanguageSwitcher = () => {
         select.value = lang;
         select.dispatchEvent(new Event('change'));
         setTranslateCookie(lang);
-
-        // Update active flag
-        document.querySelectorAll('.flag').forEach((f) => f.classList.remove('active'));
-        const flagElement = document.getElementById(`flag-${lang}`);
-        if (flagElement) {
-          flagElement.classList.add('active');
-        }
       } else {
         attempts++;
         if (attempts < maxAttempts) {
-          // Retry after 300ms
           setTimeout(tryChangeLanguage, 300);
         } else {
-          // As a fallback, set cookie and re-attempt initialization without full reload
           setTranslateCookie(lang);
           setTimeout(tryChangeLanguage, 500);
         }
@@ -90,59 +91,57 @@ const LanguageSwitcher = () => {
     tryChangeLanguage();
   };
 
-  // Apply saved language on mount without reloading
+  // Apply saved language on mount
   useEffect(() => {
-    try {
-      const match = document.cookie.match(/(?:^|; )googtrans=([^;]+)/);
-      const cookieVal = match ? decodeURIComponent(match[1]) : '';
-      const lang = cookieVal.split('/').pop();
-      if (lang && lang !== 'en') {
-        setTimeout(() => changeLang(lang), 300);
-      }
-    } catch {}
+    const savedLang = localStorage.getItem('preferredLanguage');
+    if (savedLang && savedLang !== 'en') {
+      setTimeout(() => changeLanguage(savedLang), 300);
+    }
   }, []);
 
   return (
     <>
-      <div className="flex items-center justify-end space-x-2 md:space-x-4 relative z-50">
-        <img
-          src="https://flagcdn.com/gb.svg"
-          id="flag-en"
-          className="flag active w-[22px] h-[16px] rounded-sm cursor-pointer opacity-60 transition-all duration-300 hover:opacity-100"
+      <div className="relative z-50 flex items-center space-x-2 text-sm md:text-base">
+        <button
+          onClick={() => changeLanguage('en')}
+          className={`flex items-center space-x-1 px-2 py-1 rounded-md transition-all duration-300 hover:bg-primary/10 ${
+            currentLang === 'en' ? 'bg-primary/20 font-semibold' : 'opacity-60'
+          }`}
           title="English"
-          onClick={() => changeLang('en')}
-          alt="English"
-        />
-        <img
-          src="https://flagcdn.com/ng.svg"
-          id="flag-yo"
-          className="flag w-[22px] h-[16px] rounded-sm cursor-pointer opacity-60 transition-all duration-300 hover:opacity-100"
+        >
+          <span role="img" aria-label="english">🇬🇧</span>
+          <span>EN</span>
+        </button>
+        <button
+          onClick={() => changeLanguage('yo')}
+          className={`flex items-center space-x-1 px-2 py-1 rounded-md transition-all duration-300 hover:bg-primary/10 ${
+            currentLang === 'yo' ? 'bg-primary/20 font-semibold' : 'opacity-60'
+          }`}
           title="Yoruba"
-          onClick={() => changeLang('yo')}
-          alt="Yoruba"
-        />
-        {/* Keep Google Translate element mounted and layered above content */}
-        <div id="google_translate_element" className="text-sm md:text-base relative z-50" />
+        >
+          <span role="img" aria-label="yoruba">🇳🇬</span>
+          <span>YO</span>
+        </button>
       </div>
 
-      <style>{`
-        .flag.active {
-          opacity: 1 !important;
-          transform: scale(1.1);
-          box-shadow: 0 0 4px rgba(4,176,168,0.4);
-        }
+      {/* Hide Google Translate element completely */}
+      <div id="google_translate_element" style={{ position: 'absolute', left: '-9999px', visibility: 'hidden' }} />
 
+      <style>{`
         .goog-logo-link,
-        .goog-te-banner-frame {
+        .goog-te-banner-frame,
+        .goog-te-gadget {
           display: none !important;
         }
 
         body { top: 0 !important; }
 
-        /* Ensure dropdown and injected elements stay above overlays */
-        #google_translate_element, .goog-te-gadget, .goog-te-combo {
-          position: relative !important;
-          z-index: 50 !important;
+        /* Hide all Google Translate UI elements */
+        #google_translate_element,
+        .goog-te-combo,
+        .goog-te-banner-frame.skiptranslate {
+          display: none !important;
+          visibility: hidden !important;
         }
       `}</style>
     </>

@@ -182,6 +182,11 @@ const Navbar = () => {
                 Gallery
               </button>
               
+              {/* Language Switcher in Mobile Menu */}
+              <div className="py-2 px-3">
+                <LanguageSwitcher />
+              </div>
+              
               {/* Mobile-only actions */}
               <div className="pt-3 border-t border-border space-y-2">
                 <Button
