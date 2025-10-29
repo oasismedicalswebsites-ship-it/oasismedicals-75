@@ -10,24 +10,8 @@ declare global {
 }
 
 const LanguageSwitcher = () => {
+  // Initialize Google Translate once and persist across navigation
   useEffect(() => {
-    // Ensure hidden container exists in <body> and persist across navigation
-    let container = document.getElementById('google_translate_element');
-    if (!container) {
-      container = document.createElement('div');
-      container.id = 'google_translate_element';
-      Object.assign(container.style, {
-        position: 'absolute',
-        left: '-9999px',
-        top: '-9999px',
-        width: '0px',
-        height: '0px',
-        overflow: 'hidden',
-        visibility: 'hidden',
-      });
-      document.body.appendChild(container);
-    }
-
     const init = () => {
       if (window.__gt_initialized) return;
       if (!window.google?.translate?.TranslateElement) return;
@@ -47,7 +31,7 @@ const LanguageSwitcher = () => {
     // Expose callback (idempotent)
     window.googleTranslateElementInit = init;
 
-    // Load script once
+    // Load script only once
     const hasScript = !!document.querySelector('script[src*="translate_a/element.js"]');
     if (!hasScript && !window.__gt_script_loading) {
       const script = document.createElement('script');
@@ -56,7 +40,6 @@ const LanguageSwitcher = () => {
       window.__gt_script_loading = true;
       document.body.appendChild(script);
     } else {
-      // If script already present and library loaded, init now
       init();
     }
   }, []);
@@ -76,17 +59,17 @@ const LanguageSwitcher = () => {
         // no-op
       }
     };
-    
+
     const tryChangeLanguage = () => {
-      const select = document.querySelector('.goog-te-combo') as HTMLSelectElement;
-      
+      const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
+
       if (select) {
         select.value = lang;
         select.dispatchEvent(new Event('change'));
         setTranslateCookie(lang);
-        
+
         // Update active flag
-        document.querySelectorAll('.flag').forEach(f => f.classList.remove('active'));
+        document.querySelectorAll('.flag').forEach((f) => f.classList.remove('active'));
         const flagElement = document.getElementById(`flag-${lang}`);
         if (flagElement) {
           flagElement.classList.add('active');
@@ -103,7 +86,7 @@ const LanguageSwitcher = () => {
         }
       }
     };
-    
+
     tryChangeLanguage();
   };
 
@@ -121,40 +104,45 @@ const LanguageSwitcher = () => {
 
   return (
     <>
-      <div className="flex items-center gap-2 ml-4">
-        <img 
-          src="https://flagcdn.com/gb.svg" 
-          id="flag-en" 
-          className="flag active w-[22px] h-[16px] rounded-sm cursor-pointer opacity-60 transition-all duration-300 hover:opacity-100" 
-          title="English" 
+      <div className="flex items-center justify-end space-x-2 md:space-x-4 relative z-50">
+        <img
+          src="https://flagcdn.com/gb.svg"
+          id="flag-en"
+          className="flag active w-[22px] h-[16px] rounded-sm cursor-pointer opacity-60 transition-all duration-300 hover:opacity-100"
+          title="English"
           onClick={() => changeLang('en')}
           alt="English"
         />
-        <img 
-          src="https://flagcdn.com/ng.svg" 
-          id="flag-yo" 
-          className="flag w-[22px] h-[16px] rounded-sm cursor-pointer opacity-60 transition-all duration-300 hover:opacity-100" 
-          title="Yoruba" 
+        <img
+          src="https://flagcdn.com/ng.svg"
+          id="flag-yo"
+          className="flag w-[22px] h-[16px] rounded-sm cursor-pointer opacity-60 transition-all duration-300 hover:opacity-100"
+          title="Yoruba"
           onClick={() => changeLang('yo')}
           alt="Yoruba"
         />
-        
+        {/* Keep Google Translate element mounted and layered above content */}
+        <div id="google_translate_element" className="text-sm md:text-base relative z-50" />
       </div>
-      
+
       <style>{`
         .flag.active {
           opacity: 1 !important;
           transform: scale(1.1);
           box-shadow: 0 0 4px rgba(4,176,168,0.4);
         }
-        
+
         .goog-logo-link,
         .goog-te-banner-frame {
           display: none !important;
         }
-        
-        body {
-          top: 0 !important;
+
+        body { top: 0 !important; }
+
+        /* Ensure dropdown and injected elements stay above overlays */
+        #google_translate_element, .goog-te-gadget, .goog-te-combo {
+          position: relative !important;
+          z-index: 50 !important;
         }
       `}</style>
     </>
