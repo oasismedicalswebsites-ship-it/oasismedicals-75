@@ -4,33 +4,61 @@ declare global {
   interface Window {
     google: any;
     googleTranslateElementInit: () => void;
+    __gt_initialized?: boolean;
+    __gt_script_loading?: boolean;
   }
 }
 
 const LanguageSwitcher = () => {
   useEffect(() => {
-    // Initialize Google Translate
-    window.googleTranslateElementInit = () => {
-      new window.google.translate.TranslateElement({
-        pageLanguage: 'en',
-        includedLanguages: 'en,yo',
-        layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE
-      }, 'google_translate_element');
+    // Ensure hidden container exists in <body> and persist across navigation
+    let container = document.getElementById('google_translate_element');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'google_translate_element';
+      Object.assign(container.style, {
+        position: 'absolute',
+        left: '-9999px',
+        top: '-9999px',
+        width: '0px',
+        height: '0px',
+        overflow: 'hidden',
+        visibility: 'hidden',
+      });
+      document.body.appendChild(container);
+    }
+
+    const init = () => {
+      if (window.__gt_initialized) return;
+      if (!window.google?.translate?.TranslateElement) return;
+
+      new window.google.translate.TranslateElement(
+        {
+          pageLanguage: 'en',
+          includedLanguages: 'en,yo',
+          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false,
+        },
+        'google_translate_element'
+      );
+      window.__gt_initialized = true;
     };
 
-    // Load Google Translate script
-    const script = document.createElement('script');
-    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-    script.async = true;
-    document.body.appendChild(script);
+    // Expose callback (idempotent)
+    window.googleTranslateElementInit = init;
 
-    return () => {
-      // Cleanup
-      const existingScript = document.querySelector('script[src*="translate.google.com"]');
-      if (existingScript) {
-        document.body.removeChild(existingScript);
-      }
-    };
+    // Load script once
+    const hasScript = !!document.querySelector('script[src*="translate_a/element.js"]');
+    if (!hasScript && !window.__gt_script_loading) {
+      const script = document.createElement('script');
+      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      script.async = true;
+      window.__gt_script_loading = true;
+      document.body.appendChild(script);
+    } else {
+      // If script already present and library loaded, init now
+      init();
+    }
   }, []);
 
   const changeLang = (lang: string) => {
@@ -69,15 +97,27 @@ const LanguageSwitcher = () => {
           // Retry after 300ms
           setTimeout(tryChangeLanguage, 300);
         } else {
-          // As a fallback, set cookie and reload to force translation
+          // As a fallback, set cookie and re-attempt initialization without full reload
           setTranslateCookie(lang);
-          window.location.reload();
+          setTimeout(tryChangeLanguage, 500);
         }
       }
     };
     
     tryChangeLanguage();
   };
+
+  // Apply saved language on mount without reloading
+  useEffect(() => {
+    try {
+      const match = document.cookie.match(/(?:^|; )googtrans=([^;]+)/);
+      const cookieVal = match ? decodeURIComponent(match[1]) : '';
+      const lang = cookieVal.split('/').pop();
+      if (lang && lang !== 'en') {
+        setTimeout(() => changeLang(lang), 300);
+      }
+    } catch {}
+  }, []);
 
   return (
     <>
@@ -98,7 +138,7 @@ const LanguageSwitcher = () => {
           onClick={() => changeLang('yo')}
           alt="Yoruba"
         />
-        <div id="google_translate_element" style={{ position: 'absolute', left: '-9999px', top: '-9999px', width: 0, height: 0, overflow: 'hidden', visibility: 'hidden' }}></div>
+        
       </div>
       
       <style>{`
