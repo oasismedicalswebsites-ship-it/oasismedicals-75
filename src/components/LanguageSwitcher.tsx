@@ -193,7 +193,8 @@ const LanguageSwitcher = () => {
         .goog-logo-link, .goog-te-banner-frame { display: none !important; }
         body { top: 0 !important; }
         /* Keep the gadget and select in DOM but fully off-screen to allow programmatic control */
-        #google_translate_element, .goog-te-gadget, .goog-te-combo, .skiptranslate {
+        /* CRITICAL: Do NOT hide .skiptranslate as it causes blank page - only hide the Google UI elements */
+        #google_translate_element, .goog-te-gadget, .goog-te-combo {
           position: absolute !important;
           left: -9999px !important; top: -9999px !important;
           height: 0 !important; width: 0 !important; overflow: hidden !important;
