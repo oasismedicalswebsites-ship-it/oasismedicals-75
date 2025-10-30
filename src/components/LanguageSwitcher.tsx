@@ -198,7 +198,8 @@ const LanguageSwitcher = () => {
           position: absolute !important;
           left: -9999px !important; top: -9999px !important;
           height: 0 !important; width: 0 !important; overflow: hidden !important;
-          visibility: hidden !important;
+          opacity: 0 !important;
+          pointer-events: none !important;
         }
       `}</style>
     </>
