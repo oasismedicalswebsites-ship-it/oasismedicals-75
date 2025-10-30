@@ -89,8 +89,32 @@ function setTranslateCookie(lang: string) {
   try {
     const value = `/en/${lang}`;
     const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
-    // Path cookie generally suffices; some domains reject explicit domain attr
+    
+    // Set path cookie
     document.cookie = `googtrans=${value}; expires=${expires}; path=/`;
+    
+    // Try domain cookie for better compatibility (skip on localhost/IPs)
+    const host = window.location.hostname;
+    if (host && !host.match(/^(\d+\.|\[|localhost)/)) {
+      const parts = host.split('.');
+      if (parts.length >= 2) {
+        const domain = '.' + parts.slice(-2).join('.');
+        document.cookie = `googtrans=${value}; expires=${expires}; path=/; domain=${domain}`;
+      }
+    }
+  } catch {
+    // no-op
+  }
+}
+
+function ensureBodyVisible() {
+  try {
+    const body = document.body;
+    if (body) {
+      body.style.top = '0';
+      body.style.visibility = 'visible';
+      body.style.opacity = '1';
+    }
   } catch {
     // no-op
   }
@@ -119,12 +143,18 @@ async function applyLanguage(lang: string) {
         // Dispatch both native and React-friendly events
         select.dispatchEvent(new Event('change'));
         select.dispatchEvent(new Event('change', { bubbles: true }));
+        
+        // Ensure body stays visible after translation
+        setTimeout(() => ensureBodyVisible(), 100);
+        setTimeout(() => ensureBodyVisible(), 500);
+        
         resolve();
       } else if (attempts < maxAttempts) {
         attempts++;
         setTimeout(trySelect, 200);
       } else {
         // As last resort, setting cookie still helps future renders
+        ensureBodyVisible();
         resolve();
       }
     };
@@ -142,6 +172,16 @@ const LanguageSwitcher = () => {
     const saved = localStorage.getItem('preferredLanguage') || 'en';
     setCurrentLang(saved);
 
+    // Set up MutationObserver to prevent Google from hiding body
+    const observer = new MutationObserver(() => {
+      ensureBodyVisible();
+    });
+
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['style'],
+    });
+
     if (saved !== 'en') {
       // Apply saved language after init
       const doApply = async () => {
@@ -149,8 +189,13 @@ const LanguageSwitcher = () => {
       };
       // slight delay to ensure initial DOM is ready
       const t = setTimeout(doApply, 300);
-      return () => clearTimeout(t);
+      return () => {
+        clearTimeout(t);
+        observer.disconnect();
+      };
     }
+
+    return () => observer.disconnect();
   }, []);
 
   const changeLanguage = async (lang: 'en' | 'yo') => {
@@ -190,16 +235,35 @@ const LanguageSwitcher = () => {
 
       {/* Hard-hide Google UI to avoid toolbar/branding while keeping functionality */}
       <style>{`
-        .goog-logo-link, .goog-te-banner-frame { display: none !important; }
-        body { top: 0 !important; }
+        /* Hide Google branding and banner */
+        .goog-logo-link, .goog-te-banner-frame, 
+        #goog-gt-tt, .goog-tooltip, .goog-te-spinner-pos { 
+          display: none !important; 
+        }
+        
+        /* Force body to stay visible and in position */
+        body { 
+          top: 0 !important; 
+          visibility: visible !important;
+          opacity: 1 !important;
+        }
+        
         /* Keep the gadget and select in DOM but fully off-screen to allow programmatic control */
         /* CRITICAL: Do NOT hide .skiptranslate as it causes blank page - only hide the Google UI elements */
         #google_translate_element, .goog-te-gadget, .goog-te-combo {
           position: absolute !important;
-          left: -9999px !important; top: -9999px !important;
-          height: 0 !important; width: 0 !important; overflow: hidden !important;
+          left: -9999px !important; 
+          top: -9999px !important;
+          overflow: hidden !important;
           opacity: 0 !important;
           pointer-events: none !important;
+          z-index: -1 !important;
+        }
+        
+        /* Ensure the main wrapper stays visible during translation */
+        .skiptranslate {
+          visibility: visible !important;
+          opacity: 1 !important;
         }
       `}</style>
     </>
