@@ -23,13 +23,31 @@ const PromoPopup = () => {
   const [api, setApi] = useState<CarouselApi>();
 
   useEffect(() => {
-    // Show popup automatically on page load
-    const timer = setTimeout(() => {
-      setOpen(true);
-    }, 500);
+    // Show popup automatically on page load (only once)
+    const hasShownPopup = sessionStorage.getItem('promo-popup-shown');
+    
+    if (!hasShownPopup) {
+      const timer = setTimeout(() => {
+        setOpen(true);
+        sessionStorage.setItem('promo-popup-shown', 'true');
+      }, 500);
 
-    return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
+    }
   }, []);
+
+  // Manage body overflow when popup opens/closes
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [open]);
 
   useEffect(() => {
     if (!api) return;
@@ -97,6 +115,12 @@ const PromoPopup = () => {
       <style>{`
         [data-radix-dialog-overlay] {
           background-color: rgba(0, 0, 0, 0.75) !important;
+          position: fixed !important;
+          z-index: 99999 !important;
+          inset: 0 !important;
+        }
+        [data-radix-dialog-content] {
+          z-index: 100000 !important;
         }
       `}</style>
     </Dialog>
