@@ -1,0 +1,123 @@
+{
+  "nav": {
+    "home": "Ilé",
+    "services": "Iṣẹ́",
+    "pricing": "Owó",
+    "about": "Nípa Wa",
+    "contact": "Kàn Sí Wa",
+    "gallery": "Àwòrán",
+    "callNow": "Pe Nísinsin yìí",
+    "patientLogin": "Wọlé Aláìsàn",
+    "dashboard": "Pánẹ́ẹ̀lì",
+    "bookTest": "Forúkọ Ìdánwò",
+    "language": "Èdè"
+  },
+  "hero": {
+    "tagline": "Ìlera rẹ ni àníyàn wa.",
+    "subtitle": "Iṣẹ́ ayẹwo alamọdaju pẹ̀lú ohun èlò tó dára jùlọ",
+    "bookTest": "Forúkọ Ìdánwò Báyìí",
+    "viewServices": "Wo Gbogbo Iṣẹ́",
+    "testsCount": "10,000+",
+    "testsConducted": "Ìdánwò tí a ṣe",
+    "available": "Wà",
+    "workingHours": "Ní Àkókò Iṣẹ́",
+    "trusted": "100%",
+    "trustedResults": "Àbájáde Tó Ṣeégbẹ́kẹ̀lé",
+    "slide": "Àwòrán",
+    "of": "nínú"
+  },
+  "slides": {
+    "ultrasound": {
+      "title": "Àwòrán Ultrasound Àlàyé",
+      "subtitle": "Àyẹ̀wò okeerẹ láti ₦2,500 - Àwọn onímọ̀ wà ní wákàtí 24/7",
+      "cta": "Wo Iṣẹ́ Ultrasound"
+    },
+    "laboratory": {
+      "title": "Iṣẹ́ Yàrá-ìdánwò Kíkún",
+      "subtitle": "Àyẹ̀wò tó péye pẹ̀lú àbájáde ọjọ́ kan náà - Ìdánwò 100+ wà",
+      "cta": "Ṣàwárí Ìdánwò Ẹ̀jẹ̀"
+    },
+    "xray": {
+      "title": "X-Ray Àti ECG Oni-nọ́mbà",
+      "subtitle": "Ẹ̀rọ àwòrán ìgbàlódé pẹ̀lú ìròyìn aláìlẹ́gbẹ́",
+      "cta": "Kẹ́kọ̀ọ́ Síwájú Sí i"
+    }
+  },
+  "about": {
+    "title": "Nípa O.A.S.I.S. Medicals",
+    "subtitle": "Alábàáṣiṣẹ́pọ̀ Ìlera Rẹ Tí O Lè Gbẹ́kẹ̀lé - A ti pinnu láti pèsè iṣẹ́ àyẹ̀wò tó dára jùlọ",
+    "description": "O.A.S.I.S. Medicals jẹ́ ilé-iṣẹ́ àyẹ̀wò aládàṣe tó wà ní Odò-Ọnà Kékeré, New Garage, Ìbàdàn. A ti pinnu láti pèsè iṣẹ́ àyẹ̀wò tó péye, tó yára, tó sì wọ́n ní owó fún àwùjọ wa.",
+    "mission": "Ète Wa",
+    "missionText": "Láti pèsè iṣẹ́ àyẹ̀wò tó dára jùlọ pẹ̀lú àánú, pípéye, àti ìwà-rere nígbà tí a ń ṣe ìtọ́jú ìlera sí gbogbo ènìyàn nípa títẹ̀lé ìlànà tó ga jùlọ.",
+    "vision": "Ìran Wa",
+    "visionText": "Láti jẹ́ ilé-iṣẹ́ àyẹ̀wò tó gbajúmọ̀ jùlọ ní Nàìjíríà, tí a mọ̀ fún iṣẹ́ tó dára jùlọ tó ń mú ìlera dára sí tó sì ń gba ẹ̀mí là nípasẹ̀ àwárí kíákíá àti àyẹ̀wò tó péye.",
+    "whyChooseUs": "Kí Nìdí Tí O Fi Yàn Wa?",
+    "reasons": {
+      "accurate": "Àyẹ̀wò Tó Péye Tó Sì Yára",
+      "accurateDesc": "Ẹ̀rọ tó dára jùlọ tí ó ń ṣe ìdánílójú àbájáde tó péye nígbà tí o bá nílò rẹ̀ jùlọ.",
+      "affordable": "Ẹ̀rọ Tó Dára Jùlọ",
+      "affordableDesc": "Ẹ̀rọ ìṣègùn ìgbàlódé fún agbára àwòrán àti àyẹ̀wò tó dára jùlọ.",
+      "fast": "Ìtọ́jú Tí Aláìsàn Wà Ní Àárín",
+      "fastDesc": "Àṣírí rẹ àti ìtùnú rẹ ni àkọ́kọ́ wa nínú gbogbo ìbáṣepọ̀ àti ìlànà.",
+      "professional": "Àwọn Onímọ̀ Ìṣègùn Tó Ní Ìrírí",
+      "professionalDesc": "Àwùjọ àwọn akọ́ṣẹ́mọṣẹ́ wa tó ní ìwé-ẹ̀rí mú ọdún ọ̀pọ̀lọpọ̀ ìrírí wá sí gbogbo ìdánwò àti ìgbìmọ̀ràn."
+    }
+  },
+  "services": {
+    "title": "Iṣẹ́ Wa",
+    "subtitle": "Ojútùú Àyẹ̀wò Kíkún",
+    "description": "A pèsè onírúurú iṣẹ́ àyẹ̀wò láti pàdé gbogbo àìní ìlera rẹ",
+    "ultrasound": "Àyẹ̀wò Ultrasound",
+    "laboratory": "Ìdánwò Yàrá-ìṣègùn",
+    "xray": "Àwòrán X-Ray",
+    "ecg": "Iṣẹ́ ECG",
+    "pregnancy": "Ìdánwò Oyún",
+    "blood": "Ìdánwò Ẹ̀jẹ̀",
+    "viewAll": "Wo Gbogbo Iṣẹ́",
+    "bookNow": "Forúkọ Báyìí"
+  },
+  "contact": {
+    "title": "Kàn Sí Wa",
+    "subtitle": "Bá Wa Sọ̀rọ̀",
+    "description": "A wà níbí láti ràn ọ́ lọ́wọ́. Kàn sí wa fún ìbéèrè tàbí láti forúkọ ìpàdé.",
+    "address": "Àdírẹ́sì",
+    "addressValue": "Odò-Ọnà Kékeré, New Garage, Ìbàdàn, Ìpínlẹ̀ Ọ̀yọ́, Nàìjíríà",
+    "phone": "Fóònù",
+    "email": "Ímeèlì",
+    "hours": "Àkókò Iṣẹ́",
+    "hoursValue": "Ọjọ́ Ajé - Ọjọ́ Àbámẹ́ta: 8:00 Àárọ̀ - 6:00 Ìrọ̀lẹ́",
+    "sunday": "Ọjọ́ Àìkú: Nípasẹ̀ Ìpàdé Nìkan",
+    "sendMessage": "Fi Ìránṣẹ́ Ránṣẹ́",
+    "name": "Orúkọ Rẹ",
+    "emailAddress": "Àdírẹ́sì Ímeèlì",
+    "message": "Ìránṣẹ́ Rẹ",
+    "submit": "Fi Ránṣẹ́"
+  },
+  "footer": {
+    "tagline": "Ìlera rẹ ni àníyàn wa",
+    "quickLinks": "Ìjápọ̀ Kíákíá",
+    "contactInfo": "Ìsọfúnni Ìbáṣepọ̀",
+    "followUs": "Tẹ̀lé Wa",
+    "rights": "Gbogbo Ẹ̀tọ́ Ni A Dámọ́rán",
+    "privacy": "Ìlànà Àṣírí",
+    "terms": "Àwọn Òfin Iṣẹ́"
+  },
+  "common": {
+    "learnMore": "Kẹ́kọ̀ọ́ Síwájú Sí i",
+    "readMore": "Kà Síwájú Sí i",
+    "close": "Pa dé",
+    "loading": "Ń gbé...",
+    "error": "Àṣìṣe kan ṣẹlẹ̀",
+    "success": "Àṣeyọrí",
+    "save": "Fi pamọ́",
+    "cancel": "Fagilé",
+    "confirm": "Jẹ́rìí",
+    "back": "Padà",
+    "next": "Tẹ̀síwájú",
+    "previous": "Ìṣáájú"
+  },
+  "topBar": {
+    "phone": "+234 805 813 5226",
+    "location": "Odò-Ọnà Kékeré, Ìbàdàn"
+  }
+}

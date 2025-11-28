@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { MessageCircle, Calendar, ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
-// Using client's professional medical facility photos
+import { useTranslation } from "react-i18next";
+
 const heroImage = "/lovable-uploads/4cf12c56-a1eb-44b5-a99a-2518e2e2faa6.png";
 const slideUltrasound = "/lovable-uploads/6012a936-a727-4f53-844d-5db87131386b.png";  
 const slideLaboratory = "/lovable-uploads/8960ec25-3a43-493a-8dd2-da5b605beca0.png";
@@ -11,31 +12,32 @@ const slideXray = "/lovable-uploads/a8f39a80-491f-4105-ba93-59e1e8e84f10.png";
 const HeroSlideshow = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const { t } = useTranslation();
 
   const slides = [
     {
       image: heroImage,
-      title: "Your Health is our concern.",
-      subtitle: "Professional diagnostic services with state-of-the-art equipment",
-      cta: "Book a Test Now"
+      title: t('hero.tagline'),
+      subtitle: t('hero.subtitle'),
+      cta: t('hero.bookTest')
     },
     {
       image: slideUltrasound,
-      title: "Advanced Ultrasound Imaging",
-      subtitle: "Comprehensive scans from ₦2,500 - Expert sonographers available 24/7",
-      cta: "View Ultrasound Services"
+      title: t('slides.ultrasound.title'),
+      subtitle: t('slides.ultrasound.subtitle'),
+      cta: t('slides.ultrasound.cta')
     },
     {
       image: slideLaboratory,
-      title: "Complete Laboratory Services",
-      subtitle: "Accurate diagnostics with same-day results - Over 100+ tests available",
-      cta: "Explore Lab Tests"
+      title: t('slides.laboratory.title'),
+      subtitle: t('slides.laboratory.subtitle'),
+      cta: t('slides.laboratory.cta')
     },
     {
       image: slideXray,
-      title: "Digital X-Ray & ECG",
-      subtitle: "Modern imaging technology with detailed radiological reports",
-      cta: "Learn More"
+      title: t('slides.xray.title'),
+      subtitle: t('slides.xray.subtitle'),
+      cta: t('slides.xray.cta')
     }
   ];
 
@@ -135,23 +137,23 @@ const HeroSlideshow = () => {
                 className="text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-6 bg-white/10 border-white/30 text-white hover:bg-white hover:text-primary w-full sm:w-auto"
               >
                 <Calendar className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                <span className="hidden sm:inline">View All </span>Services
+                <span className="hidden sm:inline">{t('hero.viewServices').split(' ')[0]} </span>{t('nav.services')}
               </Button>
             </div>
 
             {/* Stats cards - Responsive grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 pt-6 sm:pt-8 max-w-3xl mx-auto px-4">
               <Card className="p-4 sm:p-6 text-center border border-white/20 bg-white/10 backdrop-blur-sm">
-                <div className="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">10,000+</div>
-                <div className="text-xs sm:text-sm text-white/80">Tests Conducted</div>
+                <div className="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">{t('hero.testsCount')}</div>
+                <div className="text-xs sm:text-sm text-white/80">{t('hero.testsConducted')}</div>
               </Card>
               <Card className="p-4 sm:p-6 text-center border border-white/20 bg-white/10 backdrop-blur-sm">
-                <div className="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">Available</div>
-                <div className="text-xs sm:text-sm text-white/80">During Working Hours</div>
+                <div className="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">{t('hero.available')}</div>
+                <div className="text-xs sm:text-sm text-white/80">{t('hero.workingHours')}</div>
               </Card>
               <Card className="p-4 sm:p-6 text-center border border-white/20 bg-white/10 backdrop-blur-sm">
-                <div className="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">100%</div>
-                <div className="text-xs sm:text-sm text-white/80">Trusted Results</div>
+                <div className="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">{t('hero.trusted')}</div>
+                <div className="text-xs sm:text-sm text-white/80">{t('hero.trustedResults')}</div>
               </Card>
             </div>
           </div>
@@ -207,7 +209,7 @@ const HeroSlideshow = () => {
             <Card className="p-3 sm:p-4 bg-white/10 backdrop-blur-sm border border-white/20 hidden xs:block">
               <div className="text-center text-white">
                 <div className="text-xs sm:text-sm opacity-80 mb-1">
-                  Slide {currentSlide + 1} of {slides.length}
+                  {t('hero.slide')} {currentSlide + 1} {t('hero.of')} {slides.length}
                 </div>
                 <div className="text-sm sm:text-base font-medium">
                   {slides[currentSlide].title.split(' ').slice(0, 2).join(' ')}

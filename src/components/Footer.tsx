@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Phone, MessageCircle, Mail, MapPin, Heart, Facebook, Instagram, Map } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation();
+  
   const openWhatsApp = () => {
     window.open('https://wa.me/2348058135226', '_blank');
   };
@@ -24,17 +27,17 @@ const Footer = () => {
   };
 
   const quickLinks = [
-    { name: "Home", href: "#home" },
-    { name: "Services", href: "#services" },
-    { name: "About Us", href: "#about" },
-    { name: "Contact", href: "#contact" }
+    { name: t('nav.home'), href: "#home" },
+    { name: t('nav.services'), href: "#services" },
+    { name: t('nav.about'), href: "#about" },
+    { name: t('nav.contact'), href: "#contact" }
   ];
 
   const services = [
-    "Ultrasound Scans",
-    "Laboratory Tests", 
-    "ECG Services",
-    "X-Ray Imaging"
+    t('services.ultrasound'),
+    t('services.laboratory'), 
+    t('services.ecg'),
+    t('services.xray')
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -55,7 +58,7 @@ const Footer = () => {
               />
               <div className="min-w-0 flex-1">
                 <h3 className="text-base sm:text-xl font-bold text-foreground break-words">O.A.S.I.S. MEDICALS</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground">...Your Health is our concern.</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">...{t('footer.tagline')}</p>
               </div>
             </div>
             <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
@@ -83,7 +86,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div className="space-y-4 sm:space-y-6">
-            <h4 className="text-base sm:text-lg font-semibold text-foreground">Quick Links</h4>
+            <h4 className="text-base sm:text-lg font-semibold text-foreground">{t('footer.quickLinks')}</h4>
             <ul className="space-y-2 sm:space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
@@ -100,7 +103,7 @@ const Footer = () => {
 
           {/* Services */}
           <div className="space-y-4 sm:space-y-6">
-            <h4 className="text-base sm:text-lg font-semibold text-foreground">Our Services</h4>
+            <h4 className="text-base sm:text-lg font-semibold text-foreground">{t('services.title')}</h4>
             <ul className="space-y-2 sm:space-y-3">
               {services.map((service, index) => (
                 <li key={index} className="flex items-center text-muted-foreground">
@@ -113,7 +116,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div className="space-y-4 sm:space-y-6">
-            <h4 className="text-base sm:text-lg font-semibold text-foreground">Contact Information</h4>
+            <h4 className="text-base sm:text-lg font-semibold text-foreground">{t('footer.contactInfo')}</h4>
             <div className="space-y-3 sm:space-y-4">
               <div className="flex items-start space-x-2 sm:space-x-3">
                 <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -142,11 +145,11 @@ const Footer = () => {
         <div className="flex flex-col sm:flex-row items-center justify-between space-y-3 sm:space-y-0">
           <div className="flex items-center space-x-2 text-muted-foreground">
             <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-red-500" />
-            <span className="text-xs sm:text-sm text-center sm:text-left">© 2025 O.A.S.I.S. MEDICALS. All rights reserved.</span>
+            <span className="text-xs sm:text-sm text-center sm:text-left">© 2025 O.A.S.I.S. MEDICALS. {t('footer.rights')}.</span>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm text-muted-foreground">
-            <span>Privacy Policy</span>
-            <span>Terms of Service</span>
+            <span>{t('footer.privacy')}</span>
+            <span>{t('footer.terms')}</span>
             <span>Patient Rights</span>
           </div>
         </div>
