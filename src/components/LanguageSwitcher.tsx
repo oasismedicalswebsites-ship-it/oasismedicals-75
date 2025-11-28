@@ -207,26 +207,30 @@ const LanguageSwitcher = () => {
 
   return (
     <>
-      <div className="relative z-50 flex items-center justify-end space-x-2 md:space-x-4">
+      <div className="relative z-50 flex items-center space-x-1">
         <button
           onClick={() => changeLanguage('en')}
-          className={`flex items-center space-x-1 px-2 py-1 rounded-md transition-all duration-300 hover:bg-primary/10 ${
-            currentLang === 'en' ? 'bg-primary/20 font-semibold' : 'opacity-70'
+          className={`flex items-center space-x-1 px-2 py-1 text-xs sm:text-sm rounded-md transition-all duration-200 ${
+            currentLang === 'en' 
+              ? 'bg-primary text-primary-foreground font-semibold shadow-sm' 
+              : 'bg-background/80 text-foreground hover:bg-primary/20'
           }`}
           title="English"
         >
-          <span role="img" aria-label="english">🇬🇧</span>
-          <span>EN</span>
+          <span role="img" aria-label="english" className="text-sm">🇬🇧</span>
+          <span className="font-medium">EN</span>
         </button>
         <button
           onClick={() => changeLanguage('yo')}
-          className={`flex items-center space-x-1 px-2 py-1 rounded-md transition-all duration-300 hover:bg-primary/10 ${
-            currentLang === 'yo' ? 'bg-primary/20 font-semibold' : 'opacity-70'
+          className={`flex items-center space-x-1 px-2 py-1 text-xs sm:text-sm rounded-md transition-all duration-200 ${
+            currentLang === 'yo' 
+              ? 'bg-primary text-primary-foreground font-semibold shadow-sm' 
+              : 'bg-background/80 text-foreground hover:bg-primary/20'
           }`}
           title="Yoruba"
         >
-          <span role="img" aria-label="yoruba">🇳🇬</span>
-          <span>YO</span>
+          <span role="img" aria-label="yoruba" className="text-sm">🇳🇬</span>
+          <span className="font-medium">YO</span>
         </button>
       </div>
 

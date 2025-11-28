@@ -67,7 +67,7 @@ const HeroSlideshow = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center pt-16 sm:pt-20 overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center pt-24 sm:pt-28 overflow-hidden">
       {/* Slideshow Background */}
       <div className="absolute inset-0">
         {slides.map((slide, index) => (
