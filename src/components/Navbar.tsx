@@ -26,7 +26,20 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50">
+      {/* Top Language Bar */}
+      <div className="fixed top-0 w-full bg-primary/10 backdrop-blur-sm border-b border-border/50 z-[51]">
+        <div className="container mx-auto px-4 py-1.5 flex items-center justify-between">
+          <span className="text-xs text-muted-foreground hidden sm:block">
+            📞 +234 805 813 5226 | 📍 Odo-Ona Kekere, Ibadan
+          </span>
+          <div className="flex items-center gap-2 ml-auto">
+            <span className="text-xs text-muted-foreground mr-2 hidden sm:block">Language:</span>
+            <LanguageSwitcher />
+          </div>
+        </div>
+      </div>
+      
+      <nav className="fixed top-[42px] w-full bg-background/95 backdrop-blur-sm border-b border-border z-50">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           {/* Logo - Responsive sizing */}
           <button 
@@ -85,7 +98,6 @@ const Navbar = () => {
             >
               Gallery
             </button>
-            <LanguageSwitcher />
           </div>
 
           {/* Mobile & Desktop Actions */}
@@ -182,10 +194,6 @@ const Navbar = () => {
                 Gallery
               </button>
               
-              {/* Language Switcher in Mobile Menu */}
-              <div className="py-2 px-3">
-                <LanguageSwitcher />
-              </div>
               
               {/* Mobile-only actions */}
               <div className="pt-3 border-t border-border space-y-2">
