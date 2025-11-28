@@ -66,7 +66,7 @@
   "services": {
     "title": "Iṣẹ́ Wa",
     "subtitle": "Ojútùú Àyẹ̀wò Kíkún",
-    "description": "A pèsè onírúurú iṣẹ́ àyẹ̀wò láti pàdé gbogbo àìní ìlera rẹ",
+    "description": "Iṣẹ́ àyẹ̀wò okeerẹ pẹ̀lú ẹ̀rọ tó dára jùlọ àti àwọn onímọ̀ ìṣègùn tó ní ìrírí",
     "ultrasound": "Àyẹ̀wò Ultrasound",
     "laboratory": "Ìdánwò Yàrá-ìṣègùn",
     "xray": "Àwòrán X-Ray",
@@ -74,12 +74,20 @@
     "pregnancy": "Ìdánwò Oyún",
     "blood": "Ìdánwò Ẹ̀jẹ̀",
     "viewAll": "Wo Gbogbo Iṣẹ́",
-    "bookNow": "Forúkọ Báyìí"
+    "bookNow": "Forúkọ Báyìí",
+    "mostPopular": "Olókìkí Jùlọ",
+    "startingFrom": "Bẹ̀rẹ̀ láti",
+    "sameDay": "Ọjọ́ Kan Náà",
+    "resultsAvailable": "Àbájáde Wà",
+    "expert": "Àlàmọ̀dájú",
+    "medicalTeam": "Àwùjọ Ìṣègùn",
+    "accurate": "Tó Péye",
+    "diagnostics": "Àyẹ̀wò"
   },
   "contact": {
     "title": "Kàn Sí Wa",
     "subtitle": "Bá Wa Sọ̀rọ̀",
-    "description": "A wà níbí láti ràn ọ́ lọ́wọ́. Kàn sí wa fún ìbéèrè tàbí láti forúkọ ìpàdé.",
+    "description": "Ṣé o ti ṣetán láti forúkọ ìdánwò rẹ? Bá wa sọ̀rọ̀ fún iṣẹ́ àyẹ̀wò alamọ́dàjú",
     "address": "Àdírẹ́sì",
     "addressValue": "Odò-Ọnà Kékeré, New Garage, Ìbàdàn, Ìpínlẹ̀ Ọ̀yọ́, Nàìjíríà",
     "phone": "Fóònù",
@@ -91,7 +99,21 @@
     "name": "Orúkọ Rẹ",
     "emailAddress": "Àdírẹ́sì Ímeèlì",
     "message": "Ìránṣẹ́ Rẹ",
-    "submit": "Fi Ránṣẹ́"
+    "submit": "Fi Ránṣẹ́",
+    "visitCenter": "Ṣàbẹ̀wò Ilé-iṣẹ́ Wa",
+    "callUs": "Pe Wa",
+    "whatsapp": "WhatsApp",
+    "workingHours": "Àkókò Iṣẹ́",
+    "getDirections": "Gba Ìtọ́sọ́nà",
+    "chatNow": "Sọ̀rọ̀ Báyìí",
+    "bookNow": "Forúkọ Báyìí",
+    "bookOnline": "Forúkọ Ìdánwò Rẹ Lórí Ayélujára",
+    "formDescription": "Kún fọ́ọ̀mù yìí, a ó sì kàn sí ọ láti jẹ́rìí ìpàdé rẹ"
+  },
+  "notice": {
+    "title": "Ìkìlọ̀ Pàtàkì",
+    "message": "Jọ̀wọ́ kíyè sí: Tí o bá fẹ́ kí àwùjọ wa gbé àwọn àpẹẹrẹ láti ilé rẹ, ọ́fíìsì rẹ, tàbí ibikíbi mìíràn, owó àfikún yóò wà. Àwọn owó náà dá lórí ìjìnnà a ó sì jíròrò rẹ̀ ní ara ẹni kí a tó jẹ́rìí.",
+    "whatsappButton": "Kàn Sí Wa Lórí WhatsApp Láti Jíròrò Owó"
   },
   "footer": {
     "tagline": "Ìlera rẹ ni àníyàn wa",

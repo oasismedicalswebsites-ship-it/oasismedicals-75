@@ -3,9 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Heart, TestTube, Activity, X, ArrowRight, Star, Users, Thermometer, UserCheck, Stethoscope } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Services = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const services = [
     {
       icon: Heart,
@@ -113,10 +115,10 @@ const Services = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-            Our <span className="bg-gradient-to-r from-medical-cyan to-medical-magenta bg-clip-text text-transparent">Services</span>
+            {t('services.title').split(' ')[0]} <span className="bg-gradient-to-r from-medical-cyan to-medical-magenta bg-clip-text text-transparent">{t('nav.services')}</span>
           </h2>
           <p className="text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-6 sm:mb-8 px-4">
-            Comprehensive diagnostic services with state-of-the-art equipment and experienced medical professionals
+            {t('services.description')}
           </p>
           
           {/* Service Information Images - Responsive layout */}
