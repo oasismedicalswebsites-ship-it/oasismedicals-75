@@ -1,40 +1,43 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Shield, Award, Clock, Users, Target, Eye } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const About = () => {
+  const { t } = useTranslation();
+  
   const features = [
     {
       icon: Shield,
-      title: "Accurate & Timely Diagnostics",
-      description: "State-of-the-art equipment ensuring precise results delivered when you need them most."
+      title: t('about.reasons.accurate'),
+      description: t('about.reasons.accurateDesc')
     },
     {
       icon: Users,
-      title: "Experienced Medical Professionals",
-      description: "Our team of certified specialists brings years of expertise to every test and consultation."
+      title: t('about.reasons.professional'),
+      description: t('about.reasons.professionalDesc')
     },
     {
       icon: Award,
-      title: "State-of-the-Art Equipment",
-      description: "Latest medical technology for superior imaging and diagnostic capabilities."
+      title: t('about.reasons.affordable'),
+      description: t('about.reasons.affordableDesc')
     },
     {
       icon: Clock,
-      title: "Confidential & Patient-Centered Care",
-      description: "Your privacy and comfort are our priorities in every interaction and procedure."
+      title: t('about.reasons.fast'),
+      description: t('about.reasons.fastDesc')
     }
   ];
 
   const visionMission = [
     {
       icon: Eye,
-      title: "Our Vision",
-      content: "To be the leading diagnostic center in Nigeria, providing world-class medical services that improve health outcomes and save lives through early detection and accurate diagnosis."
+      title: t('about.vision'),
+      content: t('about.visionText')
     },
     {
       icon: Target,
-      title: "Our Mission",
-      content: "To deliver exceptional diagnostic services with compassion, accuracy, and integrity, making quality healthcare accessible to all while maintaining the highest professional standards."
+      title: t('about.mission'),
+      content: t('about.missionText')
     }
   ];
 
@@ -43,10 +46,10 @@ const About = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-            About <span className="bg-gradient-to-r from-medical-cyan to-medical-magenta bg-clip-text text-transparent">O.A.S.I.S. MEDICALS</span>
+            {t('about.title').split('O.A.S.I.S')[0]} <span className="bg-gradient-to-r from-medical-cyan to-medical-magenta bg-clip-text text-transparent">O.A.S.I.S. MEDICALS</span>
           </h2>
           <p className="text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
-            Dedicated to providing exceptional diagnostic services with a commitment to your health and well-being
+            {t('about.subtitle')}
           </p>
         </div>
 
@@ -94,7 +97,7 @@ const About = () => {
         {/* Why Choose OASIS */}
         <div>
           <h3 className="text-3xl font-bold text-center mb-12">
-            Why Choose <span className="text-primary">OASIS?</span>
+            {t('about.whyChooseUs').split('?')[0]}? <span className="text-primary">OASIS?</span>
           </h3>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">

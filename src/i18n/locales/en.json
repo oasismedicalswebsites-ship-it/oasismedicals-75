@@ -1,0 +1,123 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "pricing": "Pricing",
+    "about": "About",
+    "contact": "Contact",
+    "gallery": "Gallery",
+    "callNow": "Call Now",
+    "patientLogin": "Patient Login",
+    "dashboard": "Dashboard",
+    "bookTest": "Book Test",
+    "language": "Language"
+  },
+  "hero": {
+    "tagline": "Your Health is our concern.",
+    "subtitle": "Professional diagnostic services with state-of-the-art equipment",
+    "bookTest": "Book a Test Now",
+    "viewServices": "View All Services",
+    "testsCount": "10,000+",
+    "testsConducted": "Tests Conducted",
+    "available": "Available",
+    "workingHours": "During Working Hours",
+    "trusted": "100%",
+    "trustedResults": "Trusted Results",
+    "slide": "Slide",
+    "of": "of"
+  },
+  "slides": {
+    "ultrasound": {
+      "title": "Advanced Ultrasound Imaging",
+      "subtitle": "Comprehensive scans from ₦2,500 - Expert sonographers available 24/7",
+      "cta": "View Ultrasound Services"
+    },
+    "laboratory": {
+      "title": "Complete Laboratory Services",
+      "subtitle": "Accurate diagnostics with same-day results - Over 100+ tests available",
+      "cta": "Explore Lab Tests"
+    },
+    "xray": {
+      "title": "Digital X-Ray & ECG",
+      "subtitle": "Modern imaging technology with detailed radiological reports",
+      "cta": "Learn More"
+    }
+  },
+  "about": {
+    "title": "About O.A.S.I.S. Medicals",
+    "subtitle": "Your Trusted Healthcare Partner - Dedicated to providing exceptional diagnostic services",
+    "description": "O.A.S.I.S. Medicals is a premier diagnostic center located in Odo-Ona Kekere, New Garage, Ibadan. We are committed to providing accurate, timely, and affordable diagnostic services to our community.",
+    "mission": "Our Mission",
+    "missionText": "To deliver exceptional diagnostic services with compassion, accuracy, and integrity, making quality healthcare accessible to all while maintaining the highest professional standards.",
+    "vision": "Our Vision",
+    "visionText": "To be the leading diagnostic center in Nigeria, providing world-class medical services that improve health outcomes and save lives through early detection and accurate diagnosis.",
+    "whyChooseUs": "Why Choose Us?",
+    "reasons": {
+      "accurate": "Accurate & Timely Diagnostics",
+      "accurateDesc": "State-of-the-art equipment ensuring precise results delivered when you need them most.",
+      "affordable": "State-of-the-Art Equipment",
+      "affordableDesc": "Latest medical technology for superior imaging and diagnostic capabilities.",
+      "fast": "Confidential & Patient-Centered Care",
+      "fastDesc": "Your privacy and comfort are our priorities in every interaction and procedure.",
+      "professional": "Experienced Medical Professionals",
+      "professionalDesc": "Our team of certified specialists brings years of expertise to every test and consultation."
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive Diagnostic Solutions",
+    "description": "We offer a wide range of diagnostic services to meet all your healthcare needs",
+    "ultrasound": "Ultrasound Scans",
+    "laboratory": "Laboratory Tests",
+    "xray": "X-Ray Imaging",
+    "ecg": "ECG Services",
+    "pregnancy": "Pregnancy Tests",
+    "blood": "Blood Tests",
+    "viewAll": "View All Services",
+    "bookNow": "Book Now"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in Touch",
+    "description": "We're here to help. Reach out to us for any inquiries or to book an appointment.",
+    "address": "Address",
+    "addressValue": "Odo-Ona Kekere, New Garage, Ibadan, Oyo State, Nigeria",
+    "phone": "Phone",
+    "email": "Email",
+    "hours": "Working Hours",
+    "hoursValue": "Monday - Saturday: 8:00 AM - 6:00 PM",
+    "sunday": "Sunday: By Appointment Only",
+    "sendMessage": "Send Message",
+    "name": "Your Name",
+    "emailAddress": "Email Address",
+    "message": "Your Message",
+    "submit": "Submit"
+  },
+  "footer": {
+    "tagline": "Your Health is our concern",
+    "quickLinks": "Quick Links",
+    "contactInfo": "Contact Information",
+    "followUs": "Follow Us",
+    "rights": "All Rights Reserved",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "common": {
+    "learnMore": "Learn More",
+    "readMore": "Read More",
+    "close": "Close",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "topBar": {
+    "phone": "+234 805 813 5226",
+    "location": "Odo-Ona Kekere, Ibadan"
+  }
+}

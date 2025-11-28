@@ -3,6 +3,7 @@ import { Phone, MessageCircle, Menu, X } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigationWithLoading } from "@/hooks/useNavigationWithLoading";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import PremiumLoadingScreen from "./PremiumLoadingScreen";
 import LanguageSwitcher from "./LanguageSwitcher";
 
@@ -10,6 +11,7 @@ const Navbar = () => {
   const { user } = useAuth();
   const { navigateWithLoading, isNavigating, targetSection } = useNavigationWithLoading();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t } = useTranslation();
 
   const openWhatsApp = () => {
     window.open('https://wa.me/2348058135226', '_blank');
@@ -30,10 +32,10 @@ const Navbar = () => {
       <div className="fixed top-0 w-full bg-primary/10 backdrop-blur-sm border-b border-border/50 z-[51]">
         <div className="container mx-auto px-4 py-1.5 flex items-center justify-between">
           <span className="text-xs text-muted-foreground hidden sm:block">
-            📞 +234 805 813 5226 | 📍 Odo-Ona Kekere, Ibadan
+            📞 {t('topBar.phone')} | 📍 {t('topBar.location')}
           </span>
           <div className="flex items-center gap-2 ml-auto">
-            <span className="text-xs text-muted-foreground mr-2 hidden sm:block">Language:</span>
+            <span className="text-xs text-muted-foreground mr-2 hidden sm:block">{t('nav.language')}:</span>
             <LanguageSwitcher />
           </div>
         </div>
@@ -43,7 +45,7 @@ const Navbar = () => {
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           {/* Logo - Responsive sizing */}
           <button 
-            onClick={() => handleNavigation('/', 'Home')}
+            onClick={() => handleNavigation('/', t('nav.home'))}
             className="flex items-center space-x-2 sm:space-x-3 group"
           >
             <div className="relative">
@@ -56,47 +58,47 @@ const Navbar = () => {
             </div>
             <div className="hidden sm:block">
               <h1 className="text-base sm:text-xl font-bold text-foreground group-hover:text-primary transition-colors">O.A.S.I.S. MEDICALS</h1>
-              <p className="text-xs text-muted-foreground hidden md:block">...Your Health is our concern.</p>
+              <p className="text-xs text-muted-foreground hidden md:block">...{t('hero.tagline')}</p>
             </div>
           </button>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
             <button 
-              onClick={() => handleNavigation('/', 'Home')}
+              onClick={() => handleNavigation('/', t('nav.home'))}
               className="text-foreground hover:text-primary transition-colors"
             >
-              Home
+              {t('nav.home')}
             </button>
             <button 
-              onClick={() => handleNavigation('/services', 'Services')}
+              onClick={() => handleNavigation('/services', t('nav.services'))}
               className="text-foreground hover:text-primary transition-colors"
             >
-              Services
+              {t('nav.services')}
             </button>
             <button 
-              onClick={() => handleNavigation('/pricing', 'Pricing')}
+              onClick={() => handleNavigation('/pricing', t('nav.pricing'))}
               className="text-foreground hover:text-primary transition-colors"
             >
-              Pricing
+              {t('nav.pricing')}
             </button>
             <button 
-              onClick={() => handleNavigation('/about', 'About')}
+              onClick={() => handleNavigation('/about', t('nav.about'))}
               className="text-foreground hover:text-primary transition-colors"
             >
-              About
+              {t('nav.about')}
             </button>
             <button 
-              onClick={() => handleNavigation('/contact', 'Contact')}
+              onClick={() => handleNavigation('/contact', t('nav.contact'))}
               className="text-foreground hover:text-primary transition-colors"
             >
-              Contact
+              {t('nav.contact')}
             </button>
             <button 
-              onClick={() => handleNavigation('/gallery', 'Gallery')}
+              onClick={() => handleNavigation('/gallery', t('nav.gallery'))}
               className="text-foreground hover:text-primary transition-colors"
             >
-              Gallery
+              {t('nav.gallery')}
             </button>
           </div>
 
@@ -105,7 +107,7 @@ const Navbar = () => {
             {/* Desktop Call Button */}
             <Button variant="outline" size="sm" className="hidden sm:flex">
               <Phone className="w-4 h-4 mr-2" />
-              <span className="hidden md:inline">Call Now</span>
+              <span className="hidden md:inline">{t('nav.callNow')}</span>
             </Button>
             
             {/* User Actions */}
@@ -114,14 +116,14 @@ const Navbar = () => {
                 <Button 
                   variant="outline"
                   size="sm"
-                  onClick={() => handleNavigation('/dashboard', 'Dashboard')}
+                  onClick={() => handleNavigation('/dashboard', t('nav.dashboard'))}
                   className="hidden sm:flex"
                 >
-                  Dashboard
+                  {t('nav.dashboard')}
                 </Button>
                 <Button onClick={openWhatsApp} size="sm" className="bg-gradient-to-r from-medical-cyan to-medical-magenta hover:opacity-90">
                   <MessageCircle className="w-4 h-4 sm:mr-2" />
-                  <span className="hidden sm:inline">Book Test</span>
+                  <span className="hidden sm:inline">{t('nav.bookTest')}</span>
                 </Button>
               </div>
             ) : (
@@ -129,14 +131,14 @@ const Navbar = () => {
                 <Button 
                   variant="outline"
                   size="sm"
-                  onClick={() => handleNavigation('/auth', 'Patient Login')}
+                  onClick={() => handleNavigation('/auth', t('nav.patientLogin'))}
                   className="hidden sm:flex"
                 >
-                  Patient Login
+                  {t('nav.patientLogin')}
                 </Button>
                 <Button onClick={openWhatsApp} size="sm" className="bg-gradient-to-r from-medical-cyan to-medical-magenta hover:opacity-90">
                   <MessageCircle className="w-4 h-4 sm:mr-2" />
-                  <span className="hidden sm:inline">Book Test</span>
+                  <span className="hidden sm:inline">{t('nav.bookTest')}</span>
                 </Button>
               </div>
             )}
@@ -158,42 +160,41 @@ const Navbar = () => {
           <div className="lg:hidden bg-background/98 backdrop-blur-sm border-t border-border">
             <div className="container mx-auto px-4 py-4 space-y-3">
               <button 
-                onClick={() => handleNavigation('/', 'Home')}
+                onClick={() => handleNavigation('/', t('nav.home'))}
                 className="block w-full text-left py-2 px-3 text-foreground hover:text-primary hover:bg-primary/5 rounded-md transition-colors"
               >
-                Home
+                {t('nav.home')}
               </button>
               <button 
-                onClick={() => handleNavigation('/services', 'Services')}
+                onClick={() => handleNavigation('/services', t('nav.services'))}
                 className="block w-full text-left py-2 px-3 text-foreground hover:text-primary hover:bg-primary/5 rounded-md transition-colors"
               >
-                Services
+                {t('nav.services')}
               </button>
               <button 
-                onClick={() => handleNavigation('/pricing', 'Pricing')}
+                onClick={() => handleNavigation('/pricing', t('nav.pricing'))}
                 className="block w-full text-left py-2 px-3 text-foreground hover:text-primary hover:bg-primary/5 rounded-md transition-colors"
               >
-                Pricing
+                {t('nav.pricing')}
               </button>
               <button 
-                onClick={() => handleNavigation('/about', 'About')}
+                onClick={() => handleNavigation('/about', t('nav.about'))}
                 className="block w-full text-left py-2 px-3 text-foreground hover:text-primary hover:bg-primary/5 rounded-md transition-colors"
               >
-                About
+                {t('nav.about')}
               </button>
               <button 
-                onClick={() => handleNavigation('/contact', 'Contact')}
+                onClick={() => handleNavigation('/contact', t('nav.contact'))}
                 className="block w-full text-left py-2 px-3 text-foreground hover:text-primary hover:bg-primary/5 rounded-md transition-colors"
               >
-                Contact
+                {t('nav.contact')}
               </button>
               <button 
-                onClick={() => handleNavigation('/gallery', 'Gallery')}
+                onClick={() => handleNavigation('/gallery', t('nav.gallery'))}
                 className="block w-full text-left py-2 px-3 text-foreground hover:text-primary hover:bg-primary/5 rounded-md transition-colors"
               >
-                Gallery
+                {t('nav.gallery')}
               </button>
-              
               
               {/* Mobile-only actions */}
               <div className="pt-3 border-t border-border space-y-2">
@@ -203,23 +204,23 @@ const Navbar = () => {
                   onClick={() => window.open('tel:+2348058135226', '_self')}
                 >
                   <Phone className="w-4 h-4 mr-2" />
-                  Call Now
+                  {t('nav.callNow')}
                 </Button>
                 {user ? (
                   <Button 
                     variant="outline"
                     className="w-full justify-start"
-                    onClick={() => handleNavigation('/dashboard', 'Dashboard')}
+                    onClick={() => handleNavigation('/dashboard', t('nav.dashboard'))}
                   >
-                    Dashboard
+                    {t('nav.dashboard')}
                   </Button>
                 ) : (
                   <Button 
                     variant="outline"
                     className="w-full justify-start"
-                    onClick={() => handleNavigation('/auth', 'Patient Login')}
+                    onClick={() => handleNavigation('/auth', t('nav.patientLogin'))}
                   >
-                    Patient Login
+                    {t('nav.patientLogin')}
                   </Button>
                 )}
               </div>
