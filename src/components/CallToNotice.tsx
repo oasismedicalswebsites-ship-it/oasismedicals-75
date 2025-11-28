@@ -1,8 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MapPin, AlertCircle, MessageCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const CallToNotice = () => {
+  const { t } = useTranslation();
+  
   const openWhatsApp = () => {
     window.open('https://wa.me/2347033600770', '_blank');
   };
@@ -21,10 +24,10 @@ const CallToNotice = () => {
               <div className="flex-1 space-y-4">
                 <div className="flex items-center space-x-2">
                   <AlertCircle className="w-5 h-5 text-accent" />
-                  <h3 className="text-lg md:text-xl font-bold text-foreground">Important Notice</h3>
+                  <h3 className="text-lg md:text-xl font-bold text-foreground">{t('notice.title')}</h3>
                 </div>
                 <p className="text-sm md:text-lg text-muted-foreground leading-relaxed">
-                  <span className="font-semibold text-accent">👉</span> <em className="font-medium">Please note: If you would like our team to collect samples from your home, office, or any other location, there will be an extra charge. Charges are determined by distance and will be discussed in person before confirmation.</em>
+                  <span className="font-semibold text-accent">👉</span> <em className="font-medium">{t('notice.message')}</em>
                 </p>
                 
                 {/* WhatsApp Contact Button */}
@@ -35,7 +38,7 @@ const CallToNotice = () => {
                     size="sm"
                   >
                     <MessageCircle className="w-4 h-4 mr-2" />
-                    Contact Us on WhatsApp to Discuss Charges
+                    {t('notice.whatsappButton')}
                   </Button>
                 </div>
               </div>

@@ -8,10 +8,12 @@ import { MapPin, Phone, Mail, MessageCircle, Clock, Navigation } from "lucide-re
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const contactInfo = [
     {
@@ -100,10 +102,10 @@ const Contact = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-            Contact <span className="bg-gradient-to-r from-medical-cyan to-medical-magenta bg-clip-text text-transparent">Us</span>
+            {t('contact.title').split(' ')[0]} <span className="bg-gradient-to-r from-medical-cyan to-medical-magenta bg-clip-text text-transparent">{t('contact.title').split(' ').slice(1).join(' ')}</span>
           </h2>
           <p className="text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
-            Ready to book your test? Get in touch with us for professional diagnostic services
+            {t('contact.description')}
           </p>
         </div>
 

@@ -66,7 +66,7 @@
   "services": {
     "title": "Our Services",
     "subtitle": "Comprehensive Diagnostic Solutions",
-    "description": "We offer a wide range of diagnostic services to meet all your healthcare needs",
+    "description": "Comprehensive diagnostic services with state-of-the-art equipment and experienced medical professionals",
     "ultrasound": "Ultrasound Scans",
     "laboratory": "Laboratory Tests",
     "xray": "X-Ray Imaging",
@@ -74,12 +74,20 @@
     "pregnancy": "Pregnancy Tests",
     "blood": "Blood Tests",
     "viewAll": "View All Services",
-    "bookNow": "Book Now"
+    "bookNow": "Book Now",
+    "mostPopular": "Most Popular",
+    "startingFrom": "Starting from",
+    "sameDay": "Same Day",
+    "resultsAvailable": "Results Available",
+    "expert": "Expert",
+    "medicalTeam": "Medical Team",
+    "accurate": "Accurate",
+    "diagnostics": "Diagnostics"
   },
   "contact": {
     "title": "Contact Us",
     "subtitle": "Get in Touch",
-    "description": "We're here to help. Reach out to us for any inquiries or to book an appointment.",
+    "description": "Ready to book your test? Get in touch with us for professional diagnostic services",
     "address": "Address",
     "addressValue": "Odo-Ona Kekere, New Garage, Ibadan, Oyo State, Nigeria",
     "phone": "Phone",
@@ -91,7 +99,21 @@
     "name": "Your Name",
     "emailAddress": "Email Address",
     "message": "Your Message",
-    "submit": "Submit"
+    "submit": "Submit",
+    "visitCenter": "Visit Our Center",
+    "callUs": "Call Us",
+    "whatsapp": "WhatsApp",
+    "workingHours": "Working Hours",
+    "getDirections": "Get Directions",
+    "chatNow": "Chat Now",
+    "bookNow": "Book Now",
+    "bookOnline": "Book Your Test Online",
+    "formDescription": "Fill out this form and we'll contact you to confirm your appointment"
+  },
+  "notice": {
+    "title": "Important Notice",
+    "message": "Please note: If you would like our team to collect samples from your home, office, or any other location, there will be an extra charge. Charges are determined by distance and will be discussed in person before confirmation.",
+    "whatsappButton": "Contact Us on WhatsApp to Discuss Charges"
   },
   "footer": {
     "tagline": "Your Health is our concern",
