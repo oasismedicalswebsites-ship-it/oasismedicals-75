@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Input } from "@/components/ui/input";
-import { Heart, TestTube, Activity, X, Search, ChevronDown, MessageCircle, Thermometer, Users, UserCheck, Stethoscope } from "lucide-react";
+import { Heart, TestTube, Activity, X, Search, ChevronDown, MessageCircle, Thermometer, Users, UserCheck, Stethoscope, Gift, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -20,6 +20,27 @@ const PricingDetails = () => {
   };
 
   const pricingData = {
+    subsidized: {
+      title: "🎄 End of Year Subsidized Medical Check-up",
+      icon: Gift,
+      color: "from-red-600 via-green-600 to-red-600",
+      isPromo: true,
+      promoDate: "8th Dec 2025 - 4th Jan 2026",
+      description: "As you map out plans for the new year, let your total wellness be your priority. It is another season of our annual SUBSIDIZED MEDICAL CHECK-UP starting from 8th of December 2025 to 4th January 2026. Other complementary tests are also available. For booking and enquiries visit our website: oasismedicals.com or Call/WhatsApp: 08058135226",
+      tests: [
+        { name: "HealthyPreg\n\t•\tObstetrics scan\n\t•\tPCV\n\t•\tUrinalysis", price: "₦4,500", savings: "₦2,000" },
+        { name: "HealthyPreg Pro\n\t•\tObstetrics scan\n\t•\tPCV\n\t•\tUrinalysis\n\t•\tBlood grouping\n\t•\tRh Factor\n\t•\tHepatitis B Surface Antigen (HBsAg) Rapid\n\t•\tHIV I & II Rapid\n\t•\tHepatitis C Virus Antibody (HCV) Rapid", price: "₦13,000", savings: "₦6,000" },
+        { name: "Prime40+\n\t•\tProstate Specific Antigen (PSA)\n\t•\tProstate Scan", price: "₦14,000", savings: "₦5,000" },
+        { name: "GyneWell\n\t•\tPelvic scan\n\t•\tHVS for M/C/S", price: "₦7,000", savings: "₦2,000" },
+        { name: "ReproCare\n\t•\tEstradiol\n\t•\tFollicule Stimulating Hormone (FSH)\n\t•\tLH - Luteinizing Hormone\n\t•\tProgesterone\n\t•\tProlactin", price: "₦40,000", savings: "₦10,000" },
+        { name: "ReproCare Pro\n\t•\tEstradiol\n\t•\tFollicule Stimulating Hormone (FSH)\n\t•\tLH - Luteinizing Hormone\n\t•\tProgesterone\n\t•\tProlactin\n\t•\tAnti Mullerian Hormone (AMH)", price: "₦60,000", savings: "₦25,000" },
+        { name: "ReproCare Pro Max\n\t•\tThyroid Function Test (TFT)\n\t•\tEstradiol\n\t•\tFollicule Stimulating Hormone (FSH)\n\t•\tLH - Luteinizing Hormone\n\t•\tProgesterone\n\t•\tProlactin\n\t•\tAnti Mullerian Hormone (AMH)", price: "₦80,000", savings: "₦50,000" },
+        { name: "GenZ\n\t•\tBlood group\n\t•\tGenotype", price: "₦2,500", savings: "₦2,000" },
+        { name: "GenZ Pro\n\t•\tFull blood count\n\t•\tHepatitis B Surface Antigen (HBsAg) Rapid\n\t•\tUrinalysis\n\t•\tBody mass index", price: "₦10,000", savings: "₦3,000" },
+        { name: "Prime Pro\n\t•\tLiver function test\n\t•\tKidney Function test\n\t•\tFull Lipid profile\n\t•\tFBS/RBS", price: "₦40,000", savings: "₦15,000" },
+        { name: "Prime Pro Max\n\t•\tLiver function test\n\t•\tKidney Function test\n\t•\tFull Lipid profile\n\t•\tFBS/RBS\n\t•\tUrinalysis\n\t•\tFull blood count\n\t•\tHepatitis B Surface Antigen (HBsAg) Rapid\n\t•\tHIV I & II Rapid\n\t•\tBody mass index", price: "₦55,000", savings: "₦20,000" }
+      ]
+    },
     fever: {
       title: "Fever Tests",
       icon: Thermometer,
@@ -356,28 +377,49 @@ const PricingDetails = () => {
             const IconComponent = category.icon;
             const isOpen = openCategories[key];
             
+            const isPromo = (category as any).isPromo;
+            const promoDate = (category as any).promoDate;
+            
             return (
-              <div key={key} className="space-y-6">
+              <div key={key} className={`space-y-6 ${isPromo ? 'relative' : ''}`}>
+                {/* Promo sparkle decorations */}
+                {isPromo && (
+                  <div className="absolute -top-2 -left-2 z-10">
+                    <Sparkles className="w-8 h-8 text-yellow-400 animate-pulse" />
+                  </div>
+                )}
+                
                 {/* Always visible section with title and description */}
-                <div className={`bg-gradient-to-r ${category.color} p-8 rounded-xl text-white`}>
+                <div className={`bg-gradient-to-r ${category.color} p-8 rounded-xl text-white ${isPromo ? 'ring-4 ring-yellow-400/50 shadow-2xl' : ''}`}>
                   <div className="flex items-center space-x-4 mb-6">
-                    <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
+                    <div className={`w-16 h-16 ${isPromo ? 'bg-yellow-400/30' : 'bg-white/20'} rounded-2xl flex items-center justify-center`}>
                       <IconComponent className="w-8 h-8" />
                     </div>
                     <div className="flex-1">
                       <h2 className="text-3xl font-bold mb-2">{category.title}</h2>
-                      <div className="flex items-center space-x-3">
-                        <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
-                          2025 Pricing
-                        </Badge>
-                        <span className="text-white/80 text-sm">{category.tests.length} tests available</span>
+                      <div className="flex flex-wrap items-center gap-2">
+                        {isPromo ? (
+                          <>
+                            <Badge variant="secondary" className="bg-yellow-400 text-black border-yellow-500 font-bold animate-pulse">
+                              🎁 LIMITED TIME OFFER
+                            </Badge>
+                            <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+                              {promoDate}
+                            </Badge>
+                          </>
+                        ) : (
+                          <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+                            2025 Pricing
+                          </Badge>
+                        )}
+                        <span className="text-white/80 text-sm">{category.tests.length} packages available</span>
                       </div>
                     </div>
                   </div>
                   
                   {/* Description always visible */}
                   {(category as any).description && (
-                    <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm border border-white/20">
+                    <div className={`${isPromo ? 'bg-white/20' : 'bg-white/10'} rounded-lg p-6 backdrop-blur-sm border border-white/20`}>
                       <p className="text-white/95 leading-relaxed text-lg">
                         {(category as any).description}
                       </p>
@@ -386,29 +428,29 @@ const PricingDetails = () => {
                 </div>
 
                 {/* Accordion for Package Details */}
-                <Card className="border-2 hover:border-primary/20 transition-colors">
+                <Card className={`border-2 hover:border-primary/20 transition-colors ${isPromo ? 'border-green-300 ring-2 ring-yellow-400/30' : ''}`}>
                   <Collapsible open={isOpen} onOpenChange={() => toggleCategory(key)}>
                     <CollapsibleTrigger asChild>
-                      <CardHeader className="cursor-pointer hover:bg-gray-50 transition-colors py-6">
+                      <CardHeader className={`cursor-pointer transition-colors py-6 ${isPromo ? 'hover:bg-green-50' : 'hover:bg-gray-50'}`}>
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                              <IconComponent className="w-5 h-5 text-primary" />
+                            <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${isPromo ? 'bg-gradient-to-r from-red-100 to-green-100' : 'bg-primary/10'}`}>
+                              <IconComponent className={`w-5 h-5 ${isPromo ? 'text-green-600' : 'text-primary'}`} />
                             </div>
                             <div>
-                              <h3 className="text-xl font-semibold text-foreground">
-                                View Available {category.title}
+                              <h3 className={`text-xl font-semibold ${isPromo ? 'text-green-700' : 'text-foreground'}`}>
+                                {isPromo ? '🎄 View Christmas Special Packages' : `View Available ${category.title}`}
                               </h3>
                               <p className="text-sm text-muted-foreground">
-                                Click to see all options and pricing details
+                                {isPromo ? 'Click to see all subsidized packages and savings' : 'Click to see all options and pricing details'}
                               </p>
                             </div>
                           </div>
                           <div className="flex items-center space-x-2">
                             <span className="text-sm text-muted-foreground hidden sm:block">
-                              {isOpen ? 'Hide' : 'Show'} tests
+                              {isOpen ? 'Hide' : 'Show'} {isPromo ? 'packages' : 'tests'}
                             </span>
-                            <ChevronDown className={`w-6 h-6 text-primary transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+                            <ChevronDown className={`w-6 h-6 ${isPromo ? 'text-green-600' : 'text-primary'} transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
                           </div>
                         </div>
                       </CardHeader>
@@ -418,60 +460,77 @@ const PricingDetails = () => {
                       <CardContent className="pt-0 pb-6">
                         {/* Package Cards Grid */}
                         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                          {category.tests.map((test, index) => (
-                            <Card key={index} className="border-2 hover:border-primary/30 hover:shadow-lg transition-all duration-300 group">
-                              <CardContent className="p-6">
-                                {/* Package Name */}
-                                <div className="mb-4">
-                                  <h4 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                                    {test.name.split('\n')[0]}
-                                  </h4>
-                                </div>
-                                
-                                {/* Tests Included */}
-                                <div className="mb-6">
-                                  <h5 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wide">
-                                    Tests Included:
-                                  </h5>
-                                  <div className="space-y-2">
-                                    {test.name.split('\n').slice(1).map((line, lineIndex) => {
-                                      if (line.trim().startsWith('•') || line.trim().startsWith('\t•')) {
-                                        return (
-                                          <div key={lineIndex} className="flex items-start space-x-2">
-                                            <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2.5 flex-shrink-0"></div>
-                                            <span className="text-sm text-muted-foreground leading-relaxed">
-                                              {line.replace(/^\t*•\t*/, '').trim()}
-                                            </span>
-                                          </div>
-                                        );
-                                      }
-                                      return null;
-                                    })}
+                          {category.tests.map((test, index) => {
+                            const testSavings = (test as any).savings;
+                            return (
+                              <Card key={index} className={`border-2 hover:border-primary/30 hover:shadow-lg transition-all duration-300 group relative ${isPromo ? 'border-green-300 bg-gradient-to-br from-red-50/50 to-green-50/50' : ''}`}>
+                                {/* Savings Badge */}
+                                {testSavings && (
+                                  <div className="absolute -top-3 -right-3 z-10">
+                                    <Badge className="bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold px-3 py-1 shadow-lg">
+                                      Save {testSavings}
+                                    </Badge>
                                   </div>
-                                </div>
+                                )}
                                 
-                                {/* Price and Book Button */}
-                                <div className="border-t pt-4 space-y-4">
-                                  <div className="text-center">
-                                    <span className={`text-3xl font-bold ${
-                                      test.price === 'CALL' 
-                                        ? 'text-accent' 
-                                        : 'text-primary'
-                                    }`}>
-                                      {test.price}
-                                    </span>
+                                <CardContent className="p-6">
+                                  {/* Package Name */}
+                                  <div className="mb-4">
+                                    <h4 className={`text-xl font-bold group-hover:text-primary transition-colors ${isPromo ? 'text-green-700' : 'text-foreground'}`}>
+                                      {test.name.split('\n')[0]}
+                                    </h4>
                                   </div>
-                                  <Button 
-                                    onClick={() => handleBookService(test.name, test.price)}
-                                    className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3"
-                                    size="lg"
-                                  >
-                                    {test.price === 'CALL' ? 'Call for Details' : 'Book Now'}
-                                  </Button>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          ))}
+                                  
+                                  {/* Tests Included */}
+                                  <div className="mb-6">
+                                    <h5 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wide">
+                                      Tests Included:
+                                    </h5>
+                                    <div className="space-y-2">
+                                      {test.name.split('\n').slice(1).map((line, lineIndex) => {
+                                        if (line.trim().startsWith('•') || line.trim().startsWith('\t•')) {
+                                          return (
+                                            <div key={lineIndex} className="flex items-start space-x-2">
+                                              <div className={`w-1.5 h-1.5 ${isPromo ? 'bg-green-500' : 'bg-primary'} rounded-full mt-2.5 flex-shrink-0`}></div>
+                                              <span className="text-sm text-muted-foreground leading-relaxed">
+                                                {line.replace(/^\t*•\t*/, '').trim()}
+                                              </span>
+                                            </div>
+                                          );
+                                        }
+                                        return null;
+                                      })}
+                                    </div>
+                                  </div>
+                                  
+                                  {/* Price and Book Button */}
+                                  <div className="border-t pt-4 space-y-4">
+                                    <div className="text-center">
+                                      <span className={`text-3xl font-bold ${
+                                        test.price === 'CALL' 
+                                          ? 'text-accent' 
+                                          : isPromo ? 'text-green-600' : 'text-primary'
+                                      }`}>
+                                        {test.price}
+                                      </span>
+                                      {testSavings && (
+                                        <p className="text-sm text-red-500 font-medium mt-1">
+                                          🎄 Christmas Special Price!
+                                        </p>
+                                      )}
+                                    </div>
+                                    <Button 
+                                      onClick={() => handleBookService(test.name, test.price)}
+                                      className={`w-full font-semibold py-3 ${isPromo ? 'bg-gradient-to-r from-red-600 to-green-600 hover:from-red-700 hover:to-green-700' : 'bg-primary hover:bg-primary/90'} text-white`}
+                                      size="lg"
+                                    >
+                                      {test.price === 'CALL' ? 'Call for Details' : '🎁 Book Now'}
+                                    </Button>
+                                  </div>
+                                </CardContent>
+                              </Card>
+                            );
+                          })}
                         </div>
 
                         {/* Contact Section */}
