@@ -8,7 +8,6 @@ import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Chatbot from "@/components/Chatbot";
-import PromoPopup from "@/components/PromoPopup";
 
 const Index = () => {
   return (
