@@ -3,6 +3,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Download, Eye, ImageIcon } from "lucide-react";
 import { useState } from "react";
+import hematologyAsset from "@/assets/oasis-hematology.jpeg.asset.json";
+import chemistryAsset from "@/assets/chemistry-oasis.jpeg.asset.json";
+import xrayAsset from "@/assets/xray.jpeg.asset.json";
+import medicalTeamAsset from "@/assets/oasis-medical-team.jpeg.asset.json";
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const galleryImages = [{
@@ -18,7 +22,7 @@ const Gallery = () => {
     name: "Ultrasound department", 
     category: "Services"
   }, {
-    src: "/lovable-uploads/digital-xray-new.jpg",
+    src: xrayAsset.url,
     name: "Digital X-ray",
     category: "Services"
   }, {
@@ -34,7 +38,7 @@ const Gallery = () => {
     name: "Scientist at work",
     category: "Services"
   }, {
-    src: "/lovable-uploads/hematology-department.png",
+    src: hematologyAsset.url,
     name: "Hematology Department",
     category: "Services"
   }, {
@@ -54,11 +58,11 @@ const Gallery = () => {
     name: "Chemistry Department",
     category: "Services"
   }, {
-    src: "/lovable-uploads/chemistry-department-2.jpg",
+    src: chemistryAsset.url,
     name: "Chemistry Department",
     category: "Services"
   }, {
-    src: "/lovable-uploads/b37e74d6-ddb5-4e25-ac78-9c8350905184.png",
+    src: medicalTeamAsset.url,
     name: "Medical Team Photo",
     category: "Team"
   }];
