@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Shield, Award, Clock, Users, Target, Eye } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import ourVisionAsset from "@/assets/our-vision.jpeg.asset.json";
 
 const About = () => {
   const { t } = useTranslation();
@@ -60,8 +61,8 @@ const About = () => {
             <Card className="overflow-hidden h-full">
               <div className="relative h-full min-h-[400px]">
                 <img 
-                  src="/lovable-uploads/oasis-team-photo.jpg" 
-                  alt="OASIS Medical Team"
+                  src={ourVisionAsset.url}
+                  alt="O.A.S.I.S. Medicals team"
                   className="w-full h-full object-cover rounded-2xl shadow-xl"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
