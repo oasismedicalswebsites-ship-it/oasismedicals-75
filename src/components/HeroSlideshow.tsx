@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { MessageCircle, Calendar, ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import oasisTeamAsset from "@/assets/oasis-team.jpeg.asset.json";
 
-const heroImage = "/lovable-uploads/4cf12c56-a1eb-44b5-a99a-2518e2e2faa6.png";
+const heroImage = oasisTeamAsset.url;
 const slideUltrasound = "/lovable-uploads/6012a936-a727-4f53-844d-5db87131386b.png";  
 const slideLaboratory = "/lovable-uploads/8960ec25-3a43-493a-8dd2-da5b605beca0.png";
 const slideXray = "/lovable-uploads/a8f39a80-491f-4105-ba93-59e1e8e84f10.png";
