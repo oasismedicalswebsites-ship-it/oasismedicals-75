@@ -7,6 +7,7 @@ import hematologyAsset from "@/assets/oasis-hematology.jpeg.asset.json";
 import chemistryAsset from "@/assets/chemistry-oasis.jpeg.asset.json";
 import xrayAsset from "@/assets/xray.jpeg.asset.json";
 import medicalTeamAsset from "@/assets/oasis-medical-team.jpeg.asset.json";
+import { resolveAssetUrl } from "@/lib/assetUrl";
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const galleryImages = [{
@@ -22,7 +23,7 @@ const Gallery = () => {
     name: "Ultrasound department", 
     category: "Services"
   }, {
-    src: xrayAsset.url,
+    src: resolveAssetUrl(xrayAsset.url),
     name: "Digital X-ray",
     category: "Services"
   }, {
@@ -38,7 +39,7 @@ const Gallery = () => {
     name: "Scientist at work",
     category: "Services"
   }, {
-    src: hematologyAsset.url,
+    src: resolveAssetUrl(hematologyAsset.url),
     name: "Hematology Department",
     category: "Services"
   }, {
@@ -58,11 +59,11 @@ const Gallery = () => {
     name: "Chemistry Department",
     category: "Services"
   }, {
-    src: chemistryAsset.url,
+    src: resolveAssetUrl(chemistryAsset.url),
     name: "Chemistry Department",
     category: "Services"
   }, {
-    src: medicalTeamAsset.url,
+    src: resolveAssetUrl(medicalTeamAsset.url),
     name: "Medical Team Photo",
     category: "Team"
   }];
