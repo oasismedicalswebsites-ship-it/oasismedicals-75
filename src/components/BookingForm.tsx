@@ -48,7 +48,8 @@ const testCategories = {
   ],
   'Pre-marital Screening': [
     { name: 'Pre-marital Test (Basic) - Male and Female', price: 12000 },
-    { name: 'Pre-marital Test (Standard) - Female', price: 20000 },
+    { name: 'Pre-marital Test (Basic+) - Male and Female', price: 20000 },
+    { name: 'Pre-marital Test (Standard) - Female', price: 30000 },
     { name: 'Pre-marital Test (Comprehensive) - Female', price: 100000 },
     { name: 'Pre-marital Test (Comprehensive) - Male', price: 120000 },
   ],
