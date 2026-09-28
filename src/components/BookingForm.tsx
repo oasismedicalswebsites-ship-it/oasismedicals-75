@@ -35,12 +35,13 @@ const testCategories = {
     { name: 'Erectile Dysfunction Package', price: 100000 },
   ],
   'Women Packages': [
+    { name: 'Radiance Package', price: 10000 },
     { name: 'Full Body Checkup (Opal)', price: 45000 },
     { name: 'Full Body Checkup (Ruby)', price: 70000 },
     { name: 'Full Body Checkup (Diamond)', price: 200000 },
     { name: 'Fertility/Hormonal Tests (Basic)', price: 40000 },
     { name: 'Fertility/Hormonal Tests (Standard)', price: 55000 },
-    { name: 'Fertility/Hormonal Tests (Comprehensive)', price: 150000 },
+    { name: 'Fertility/Hormonal Tests (Comprehensive)', price: 60000 },
   ],
   'Domestic Staff Screening': [
     { name: 'Basic Screening Package', price: 20000 },
