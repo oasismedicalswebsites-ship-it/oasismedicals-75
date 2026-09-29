@@ -12,6 +12,8 @@ import labo2Asset from "@/assets/labo-2.jpeg.asset.json";
 import { resolveAssetUrl } from "@/lib/assetUrl";
 import recepAsset from "@/assets/recep-1.jpeg.asset.json";
 import waitingAsset from "@/assets/waiting-1.jpeg.asset.json";
+import scientistAsset from "@/assets/scientist-1.jpeg.asset.json";
+import xrayDeptAsset from "@/assets/xray-dept-1.jpeg.asset.json";
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const galleryImages = [{
@@ -39,7 +41,7 @@ const Gallery = () => {
     name: "Patient Reception Service",
     category: "Services"
   }, {
-    src: "/lovable-uploads/scientist-at-work.png",
+    src: resolveAssetUrl(scientistAsset.url),
     name: "Scientist at work",
     category: "Services"
   }, {
@@ -51,7 +53,7 @@ const Gallery = () => {
     name: "Microbiology Department",
     category: "Services"
   }, {
-    src: "/lovable-uploads/xray-department.png",
+    src: resolveAssetUrl(xrayDeptAsset.url),
     name: "X-ray Department",
     category: "Services"
   }, {
