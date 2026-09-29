@@ -7,6 +7,8 @@ import hematologyAsset from "@/assets/oasis-hematology.jpeg.asset.json";
 import chemistryAsset from "@/assets/chemistry-oasis.jpeg.asset.json";
 import xrayAsset from "@/assets/xray.jpeg.asset.json";
 import medicalTeamAsset from "@/assets/oasis-medical-team.jpeg.asset.json";
+import laboAsset from "@/assets/labo.jpeg.asset.json";
+import labo2Asset from "@/assets/labo-2.jpeg.asset.json";
 import { resolveAssetUrl } from "@/lib/assetUrl";
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -157,6 +159,54 @@ const Gallery = () => {
             <h3 className="text-xl font-semibold text-foreground mb-2">No images found</h3>
             <p className="text-muted-foreground">Try selecting a different category</p>
           </div>}
+
+        {/* Laboratorians at Work Section */}
+        <div className="mt-20">
+          <div className="text-center mb-10">
+            <h3 className="text-3xl font-bold text-foreground mb-4">Laboratorians at Work</h3>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              A glimpse of our dedicated medical laboratory scientists at work, delivering accurate and reliable results
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[{
+              src: resolveAssetUrl(laboAsset.url),
+              name: "O.A.S.I.S. Medicals Laboratory Team",
+              caption: "Our laboratory team standing together in the lab"
+            }, {
+              src: resolveAssetUrl(labo2Asset.url),
+              name: "Laboratorians Running Tests",
+              caption: "Laboratorians analysing samples at the bench"
+            }].map((image, index) => (
+              <div key={index} className="group overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary/20">
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src={image.src}
+                    alt={image.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-pointer"
+                    onClick={() => handleImageClick(image.src)}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute bottom-0 left-0 right-0 p-5 flex items-end justify-between">
+                      <div>
+                        <Badge className="mb-2 bg-white/20 text-white border-white/30">Laboratorians</Badge>
+                        <h4 className="text-white font-semibold">{image.name}</h4>
+                        <p className="text-white/80 text-sm">{image.caption}</p>
+                      </div>
+                      <Button size="sm" variant="secondary" onClick={() => handleImageClick(image.src)} className="bg-white/20 text-white border-white/30 hover:bg-white/30">
+                        <Eye className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 bg-card">
+                  <h4 className="font-semibold text-foreground">{image.name}</h4>
+                  <p className="text-sm text-muted-foreground">{image.caption}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* Image Modal */}
         {selectedImage && <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4" onClick={closeModal}>
