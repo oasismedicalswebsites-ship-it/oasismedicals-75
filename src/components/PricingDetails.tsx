@@ -49,7 +49,7 @@ const PricingDetails = () => {
       title: "Women's Health",
       icon: Heart,
       color: "from-pink-500 to-rose-600",
-      description: "Get a clear picture of your health, then take control. Stay in touch with your general health today. Your time, your convenience, your choice. Our comprehensive health screening packages are designed to provide a detailed overview of your general body health, including cardiovascular health, blood sugar levels, kidney and liver function, and more.",
+      description: "Stay in touch with your general health today. Your time, your convenience, your choice.\n\nAbout Full Body checkup\n\nOur Full Body Checkup packages are comprehensive health screening packages designed to provide a detailed overview of your general body health. This package includes a range of tests and diagnostic procedures that assess various aspects of your health, including cardiovascular health, blood sugar levels, kidney and liver function, and more. With this checkup, you can detect early signs of major health issues like diabetes, high cholesterol, hypertension, and other chronic diseases.",
       tests: [
         { name: "Radiance Package\n\t•\tPelvic Scan\n\t•\tHigh Vaginal Swab (HVS) M/C/S", price: "₦10,000" },
         { name: "Full Body Checkup (Opal)\n\t•\tFasting Blood Sugar (FBS)\n\t•\tTotal Cholesterol\n\t•\tFull Blood Count\n\t•\tUrinalysis\n\t•\tLiver Function Test\n\t•\tKidney Function Test", price: "₦45,000" },
@@ -382,7 +382,7 @@ const PricingDetails = () => {
                   {/* Description always visible */}
                   {(category as any).description && (
                     <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm border border-white/20">
-                      <p className="text-white/95 leading-relaxed text-lg">
+                      <p className="text-white/95 leading-relaxed text-lg whitespace-pre-line">
                         {(category as any).description}
                       </p>
                     </div>
