@@ -10,10 +10,12 @@ import medicalTeamAsset from "@/assets/oasis-medical-team.jpeg.asset.json";
 import laboAsset from "@/assets/labo.jpeg.asset.json";
 import labo2Asset from "@/assets/labo-2.jpeg.asset.json";
 import { resolveAssetUrl } from "@/lib/assetUrl";
+import recepAsset from "@/assets/recep-1.jpeg.asset.json";
+import waitingAsset from "@/assets/waiting-1.jpeg.asset.json";
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const galleryImages = [{
-    src: "/lovable-uploads/waiting-area-new.png",
+    src: resolveAssetUrl(waitingAsset.url),
     name: "Waiting Area",
     category: "Facility"
   }, {
@@ -33,7 +35,7 @@ const Gallery = () => {
     name: "Director",
     category: "Team"
   }, {
-    src: "/lovable-uploads/3f2ea8ce-8e6d-4383-9fce-900ffef57f89.png",
+    src: resolveAssetUrl(recepAsset.url),
     name: "Patient Reception Service",
     category: "Services"
   }, {
