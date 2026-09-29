@@ -74,7 +74,7 @@ const PricingDetails = () => {
       title: "Pre-marital Screening",
       icon: Heart,
       color: "from-purple-600 to-violet-600",
-      description: "Our Pre-Marital Tests Packages provide essential health evaluations to ensure you and your partner are in optimal health before your wedding day. These comprehensive screenings help identify any health concerns early and ensure a healthy start to your marriage.",
+      description: "Our Pre -Marital basic Tests Package provides a fundamental evaluation of your health to ensure a smooth and worry-free wedding experience. This package includes essential screenings, such as",
       tests: [
         { name: "Pre-marital Test (Basic) - Male and Female\n\t•\tBlood Grouping (ABO & Rh Typing)\n\t•\tHb Electrophoresis/Genotype (Qualitative)\n\t•\tHepatitis B Surface Antigen (HBsAg) Rapid\n\t•\tHIV I & II Rapid", price: "₦12,000" },
         { name: "Pre-marital Test (Basic+) - Male and Female\n\t•\tBlood Grouping (ABO & Rh Typing)\n\t•\tHb Electrophoresis/Genotype (Quantitative)\n\t•\tHepatitis B Surface Antigen (HBsAg) Rapid\n\t•\tHIV I & II Rapid", price: "₦20,000" },
