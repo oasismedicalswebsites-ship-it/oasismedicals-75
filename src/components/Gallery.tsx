@@ -14,6 +14,7 @@ import recepAsset from "@/assets/recep-1.jpeg.asset.json";
 import waitingAsset from "@/assets/waiting-1.jpeg.asset.json";
 import scientistAsset from "@/assets/scientist-1.jpeg.asset.json";
 import xrayDeptAsset from "@/assets/xray-dept-1.jpeg.asset.json";
+import microbiologyAsset from "@/assets/microbiology-1.jpeg.asset.json";
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const galleryImages = [{
@@ -49,7 +50,7 @@ const Gallery = () => {
     name: "Hematology Department",
     category: "Services"
   }, {
-    src: "/lovable-uploads/microbiology-department.png",
+    src: resolveAssetUrl(microbiologyAsset.url),
     name: "Microbiology Department",
     category: "Services"
   }, {
